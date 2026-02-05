@@ -1,13 +1,13 @@
 # OpenZeppelin Skills
 
-Skills for secure smart contract development with OpenZeppelin Contracts.
+Agent skills for secure smart contract development with OpenZeppelin Contracts.
 
 ## Available Skills
 
 | Skill | Purpose | Status |
 |-------|---------|--------|
 | [openzeppelin-contracts](skills/openzeppelin-contracts/) | Setup, patterns, and upgrades for OpenZeppelin Contracts | ✅ Draft for patterns, ❌ Placeholders for setup/upgrades |
-| [openzeppelin-security](skills/openzeppelin-security/) | Security best practices | ❌ Placeholders |
+| [openzeppelin-security](skills/openzeppelin-security/) | Secure development best practices | ❌ Placeholders |
 
 ## Installation
 

@@ -9,7 +9,7 @@ description: Secure smart contract development best practices. Use when users as
 
 ## Ecosystem-Specific References
 
-Read when users need security guidance specific to their language/platform.
+Read when users need secure development guidance specific to their language/platform.
 
 - [references/solidity.md](references/solidity.md)
 - [references/cairo.md](references/cairo.md)
