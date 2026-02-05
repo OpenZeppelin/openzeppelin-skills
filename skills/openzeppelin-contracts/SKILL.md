@@ -53,7 +53,7 @@ Verify the required MCP server is available. Server names and tools by ecosystem
 | Stellar | `OpenZeppelinStellarContracts` or `OpenZeppelinContracts` | `stellar-fungible`, `stellar-stablecoin`, `stellar-non-fungible` |
 | Uniswap | `OpenZeppelinUniswapHooks` or `OpenZeppelinContracts` | `uniswap-hooks` |
 
-If unavailable, direct user to https://mcp.openzeppelin.com/ for installation.
+If unavailable, direct user to https://mcp.openzeppelin.com/ for installation before proceeding.
 
 ### Discovery Loop
 
