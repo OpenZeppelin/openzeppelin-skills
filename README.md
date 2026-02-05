@@ -6,59 +6,41 @@ Skills for secure smart contract development with OpenZeppelin Contracts.
 
 ```
 skills/
-└── openzeppelin/
-    ├── SKILL.md (umbrella - routes to sub-skills)
-    ├── openzeppelin-setup/
-    ├── openzeppelin-patterns/
-    ├── openzeppelin-upgrades/
-    └── openzeppelin-security/
+├── openzeppelin-contracts/
+│   ├── SKILL.md
+│   └── references/
+│       ├── patterns.md
+│       ├── setup-cairo.md
+│       ├── setup-solidity.md
+│       ├── setup-stellar.md
+│       ├── setup-stylus.md
+│       ├── upgrades-cairo.md
+│       └── upgrades-solidity.md
+└── openzeppelin-security/
+    ├── SKILL.md
+    └── references/
+        ├── cairo.md
+        ├── solidity.md
+        ├── stellar.md
+        └── stylus.md
 ```
 
 ## Available Skills
 
 | Skill | Purpose | Status |
 |-------|---------|--------|
-| [openzeppelin](skills/openzeppelin/) | General guidance and skill discovery | ✅ Initial draft |
-| [openzeppelin-setup](skills/openzeppelin/openzeppelin-setup/) | Project installation and configuration | ❌ Placeholders |
-| [openzeppelin-patterns](skills/openzeppelin/openzeppelin-patterns/) | Pattern discovery via OpenZeppelin MCP generators | ✅ Initial draft |
-| [openzeppelin-upgrades](skills/openzeppelin/openzeppelin-upgrades/) | Upgradeable contract patterns | ❌ Placeholders |
-| [openzeppelin-security](skills/openzeppelin/openzeppelin-security/) | Secure development best practices | ❌ Placeholders |
+| [openzeppelin-contracts](skills/openzeppelin-contracts/) | Setup, patterns, and upgrades for OpenZeppelin Contracts | ✅ Patterns complete, ❌ Placeholders for setup/upgrades |
+| [openzeppelin-security](skills/openzeppelin-security/) | Security best practices | ❌ Placeholders |
 
 ## Installation
 
-### Full skill (recommended)
-
-Copy the entire `openzeppelin/` folder to your `.claude/skills/` directory:
+Copy the skill folder(s) to your `.claude/skills/` directory:
 
 ```bash
-cp -r skills/openzeppelin ~/.claude/skills/
+cp -r skills/openzeppelin-contracts ~/.claude/skills/
+cp -r skills/openzeppelin-security ~/.claude/skills/
 ```
-
-The umbrella skill routes to sub-skills as needed.
-
-### Individual sub-skills
-
-To install a sub-skill as a standalone top-level skill:
-
-```bash
-cp -r skills/openzeppelin/<SKILL_NAME> ~/.claude/skills/
-```
-
-This allows direct triggering without going through the umbrella.
 
 ## Ecosystem-Specific Content
 
-The `setup`, `patterns`, and `upgrades` skills include guidance for:
-
-- **Solidity/EVM** — Hardhat, Foundry
-- **Cairo/Starknet** — Scarb
-- **Stylus** — Cargo + Stylus SDK
-- **Stellar** — Soroban
-
-## Security Best Practices
-
-The `security` skill covers security principles that apply to all smart contract development, with ecosystem-specific guidance in reference files.
-
-## Future Distribution
-
-A packaging script may be added to create distributable `.skill` files (zip archives) for easier installation of either the full skill or individual sub-skills.
+Skills may include general guidance, and optionally ecosystem-specific content in the `references/` directory of each skill.
