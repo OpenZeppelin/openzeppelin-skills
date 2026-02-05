@@ -1,5 +1,5 @@
 ---
-name: openzeppelin-contracts-patterns
+name: openzeppelin-patterns
 description: Use when writing, modifying, or reviewing smart contracts that use OpenZeppelin Contracts. Triggers include: (1) implementing token standards (ERC20, ERC721, ERC1155, fungible, non-fungible), (2) adding security features (access control, pausability), (3) governance contracts (Governor, voting, timelocks), (4) smart accounts (account abstraction), (5) upgradeability patterns, (6) questions about OpenZeppelin component integration. Supports Solidity/EVM, Cairo/Starknet, Stylus, Stellar, and Uniswap Hooks.
 ---
 
