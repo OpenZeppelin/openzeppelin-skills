@@ -9,5 +9,5 @@ description: Upgradeable smart contract patterns using OpenZeppelin. Use when us
 
 ## References
 
-- `references/solidity.md` — Hardhat and Foundry upgrade tooling
-- `references/cairo.md` — Cairo upgradeability
+- [references/solidity.md](references/solidity.md) — Hardhat and Foundry upgrade tooling
+- [references/cairo.md](references/cairo.md) — Cairo upgradeability

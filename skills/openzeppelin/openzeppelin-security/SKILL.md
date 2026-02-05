@@ -9,7 +9,7 @@ description: Secure smart contract development best practices. Use when users as
 
 ## References
 
-- `references/solidity.md` — Solidity-specific security guidance
-- `references/cairo.md` — Cairo-specific security guidance
-- `references/stylus.md` — Stylus-specific security guidance
-- `references/stellar.md` — Stellar-specific security guidance
+- [references/solidity.md](references/solidity.md) — Solidity-specific security guidance
+- [references/cairo.md](references/cairo.md) — Cairo-specific security guidance
+- [references/stylus.md](references/stylus.md) — Stylus-specific security guidance
+- [references/stellar.md](references/stellar.md) — Stellar-specific security guidance

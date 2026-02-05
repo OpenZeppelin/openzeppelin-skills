@@ -9,7 +9,7 @@ description: Installing and configuring OpenZeppelin Contracts projects. Use whe
 
 ## References
 
-- `references/solidity.md` — Hardhat and Foundry setup
-- `references/cairo.md` — Scarb setup
-- `references/stylus.md` — Cargo Stylus setup
-- `references/stellar.md` — Soroban setup
+- [references/solidity.md](references/solidity.md) — Hardhat and Foundry setup
+- [references/cairo.md](references/cairo.md) — Scarb setup
+- [references/stylus.md](references/stylus.md) — Cargo Stylus setup
+- [references/stellar.md](references/stellar.md) — Soroban setup
