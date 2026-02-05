@@ -2,28 +2,6 @@
 
 Skills for secure smart contract development with OpenZeppelin Contracts.
 
-## Structure
-
-```
-skills/
-├── openzeppelin-contracts/
-│   ├── SKILL.md (includes patterns)
-│   └── references/
-│       ├── setup-cairo.md
-│       ├── setup-solidity.md
-│       ├── setup-stellar.md
-│       ├── setup-stylus.md
-│       ├── upgrades-cairo.md
-│       └── upgrades-solidity.md
-└── openzeppelin-security/
-    ├── SKILL.md
-    └── references/
-        ├── cairo.md
-        ├── solidity.md
-        ├── stellar.md
-        └── stylus.md
-```
-
 ## Available Skills
 
 | Skill | Purpose | Status |
