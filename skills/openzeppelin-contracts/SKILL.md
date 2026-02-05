@@ -7,16 +7,22 @@ description: Smart contract development with OpenZeppelin Contracts. Use when us
 
 ## Setup
 
-- [references/setup-solidity.md](references/setup-solidity.md) — Solidity Contracts setup
-- [references/setup-cairo.md](references/setup-cairo.md) — Cairo Contracts setup
-- [references/setup-stylus.md](references/setup-stylus.md) — Stylus Contracts setup
-- [references/setup-stellar.md](references/setup-stellar.md) — Stellar Contracts setup
+Read when users need to install OpenZeppelin dependencies, create a new project, or configure development tooling (Hardhat, Foundry, Scarb, etc.).
+
+- [references/setup-solidity.md](references/setup-solidity.md) — Solidity contracts
+- [references/setup-cairo.md](references/setup-cairo.md) — Cairo contracts
+- [references/setup-stylus.md](references/setup-stylus.md) — Stylus contracts
+- [references/setup-stellar.md](references/setup-stellar.md) — Stellar contracts
 
 ## Patterns
 
-- [references/patterns.md](references/patterns.md) — Patterns for using components from OpenZeppelin Contracts
+Read when users need to implement token standards, add access control, governance, or other OpenZeppelin components. Uses MCP generators as discovery tools.
+
+- [references/patterns.md](references/patterns.md)
 
 ## Upgrades
 
-- [references/upgrades-solidity.md](references/upgrades-solidity.md) — Hardhat and Foundry upgrades
+Read when users need to make contracts upgradeable, choose proxy patterns (UUPS, Transparent, Beacon), write initializers, or perform upgrades.
+
+- [references/upgrades-solidity.md](references/upgrades-solidity.md) — Solidity upgrades with Hardhat and Foundry
 - [references/upgrades-cairo.md](references/upgrades-cairo.md) — Cairo upgrades

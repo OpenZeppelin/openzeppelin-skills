@@ -7,9 +7,11 @@ description: Secure smart contract development best practices. Use when users as
 
 <!-- TODO: Add security principles, common vulnerabilities, and review checklist -->
 
-## References
+## Ecosystem-Specific References
 
-- [references/solidity.md](references/solidity.md) — Solidity-specific security guidance
-- [references/cairo.md](references/cairo.md) — Cairo-specific security guidance
-- [references/stylus.md](references/stylus.md) — Stylus-specific security guidance
-- [references/stellar.md](references/stellar.md) — Stellar-specific security guidance
+Read when users need security guidance specific to their language/platform.
+
+- [references/solidity.md](references/solidity.md)
+- [references/cairo.md](references/cairo.md)
+- [references/stylus.md](references/stylus.md)
+- [references/stellar.md](references/stellar.md)

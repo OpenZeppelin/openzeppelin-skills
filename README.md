@@ -29,7 +29,7 @@ skills/
 
 | Skill | Purpose | Status |
 |-------|---------|--------|
-| [openzeppelin-contracts](skills/openzeppelin-contracts/) | Setup, patterns, and upgrades for OpenZeppelin Contracts | ✅ Patterns complete, ❌ Placeholders for setup/upgrades |
+| [openzeppelin-contracts](skills/openzeppelin-contracts/) | Setup, patterns, and upgrades for OpenZeppelin Contracts | ✅ Draft for patterns, ❌ Placeholders for setup/upgrades |
 | [openzeppelin-security](skills/openzeppelin-security/) | Security best practices | ❌ Placeholders |
 
 ## Installation
