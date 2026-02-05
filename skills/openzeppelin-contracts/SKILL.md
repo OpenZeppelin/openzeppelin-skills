@@ -1,6 +1,6 @@
 ---
 name: openzeppelin-contracts
-description: Smart contract development with OpenZeppelin Contracts. Use when users need to: (1) set up a project with OpenZeppelin, (2) implement token standards (ERC20, ERC721, ERC1155), (3) add security features (access control, pausability), (4) implement governance (Governor, voting, timelocks), (5) make contracts upgradeable, (6) use OpenZeppelin MCP generators. Supports Solidity, Cairo, Stylus, and Stellar.
+description: "Smart contract development with OpenZeppelin Contracts. Use when users need to: (1) set up a project with OpenZeppelin, (2) implement token standards (ERC20, ERC721, ERC1155), (3) add security features (access control, pausability), (4) implement governance (Governor, voting, timelocks), (5) make contracts upgradeable, (6) use OpenZeppelin MCP generators. Supports Solidity, Cairo, Stylus, and Stellar."
 ---
 
 # OpenZeppelin Contracts
