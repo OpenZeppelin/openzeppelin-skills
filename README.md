@@ -7,9 +7,8 @@ Skills for secure smart contract development with OpenZeppelin Contracts.
 ```
 skills/
 ├── openzeppelin-contracts/
-│   ├── SKILL.md
+│   ├── SKILL.md (includes patterns)
 │   └── references/
-│       ├── patterns.md
 │       ├── setup-cairo.md
 │       ├── setup-solidity.md
 │       ├── setup-stellar.md
@@ -43,4 +42,4 @@ cp -r skills/openzeppelin-security ~/.claude/skills/
 
 ## Ecosystem-Specific Content
 
-Skills may include general guidance, and optionally ecosystem-specific content in the `references/` directory of each skill.
+Skills may include general guidance and workflows, and optionally ecosystem-specific content in the `references/` directory of each skill.
