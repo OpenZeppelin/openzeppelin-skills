@@ -1,0 +1,12 @@
+{
+  "name": "openzeppelin-skills",
+  "version": "0.0.1",
+  "description": "Smart contract development skills and MCP tools for OpenZeppelin Contracts. Covers Solidity, Cairo, Stylus, Stellar, and Uniswap ecosystems.",
+  "author": {
+    "name": "OpenZeppelin",
+    "url": "https://www.openzeppelin.com"
+  },
+  "homepage": "https://www.openzeppelin.com",
+  "repository": "https://github.com/OpenZeppelin/openzeppelin-skills",
+  "license": "AGPL-3.0"
+}

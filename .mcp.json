@@ -1,0 +1,24 @@
+{
+  "mcpServers": {
+    "OpenZeppelinSolidityContracts": {
+      "type": "http",
+      "url": "https://mcp.openzeppelin.com/contracts/solidity/mcp"
+    },
+    "OpenZeppelinCairoContracts": {
+      "type": "http",
+      "url": "https://mcp.openzeppelin.com/contracts/cairo/mcp"
+    },
+    "OpenZeppelinStellarContracts": {
+      "type": "http",
+      "url": "https://mcp.openzeppelin.com/contracts/stellar/mcp"
+    },
+    "OpenZeppelinStylusContracts": {
+      "type": "http",
+      "url": "https://mcp.openzeppelin.com/contracts/stylus/mcp"
+    },
+    "OpenZeppelinUniswapHooks": {
+      "type": "http",
+      "url": "https://mcp.openzeppelin.com/contracts/uniswap-hooks/mcp"
+    }
+  }
+}
