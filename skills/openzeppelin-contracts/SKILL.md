@@ -1,117 +1,92 @@
 ---
 name: openzeppelin-contracts
-description: "Smart contract development with OpenZeppelin Contracts. Use when users need to: (1) set up a project with OpenZeppelin, (2) implement token standards (ERC20, ERC721, ERC1155), (3) add security features (access control, pausability), (4) implement governance (Governor, voting, timelocks), (5) make contracts upgradeable, (6) use OpenZeppelin MCP generators. Supports Solidity, Cairo, Stylus, and Stellar."
+description: "Smart contract development with OpenZeppelin Contracts libraries. Use when users need to: (1) implement token standards (ERC20, ERC721, ERC1155, fungible/non-fungible), (2) add access control (Ownable, Roles, AccessManager), (3) add security features (Pausable, ReentrancyGuard), (4) implement governance (Governor, voting, timelocks), (5) make contracts upgradeable (UUPS, Transparent, Beacon proxies), (6) build accounts (multisig, abstraction), (7) set up a project with OpenZeppelin dependencies, or (8) apply any OpenZeppelin library pattern. Supports Solidity, Cairo, Stylus, and Stellar ecosystems."
 ---
 
 # OpenZeppelin Contracts
 
 ## Setup
 
-Read when users need to install OpenZeppelin dependencies, create a new project, or configure development tooling (Hardhat, Foundry, Scarb, etc.).
+Read per-ecosystem setup when users need to install dependencies, create a project, or configure tooling.
 
-- [references/setup-solidity.md](references/setup-solidity.md) — Solidity contracts
-- [references/setup-cairo.md](references/setup-cairo.md) — Cairo contracts
-- [references/setup-stylus.md](references/setup-stylus.md) — Stylus contracts
-- [references/setup-stellar.md](references/setup-stellar.md) — Stellar contracts
+- [references/setup-solidity.md](references/setup-solidity.md) — Solidity (Hardhat, Foundry)
+- [references/setup-cairo.md](references/setup-cairo.md) — Cairo (Scarb, Starknet)
+- [references/setup-stylus.md](references/setup-stylus.md) — Stylus (Rust, Arbitrum)
+- [references/setup-stellar.md](references/setup-stellar.md) — Stellar (Soroban)
 
-## Patterns
+## Core Workflow
 
 ### CRITICAL: Always Read the Project First
 
-**BEFORE calling any MCP generator tool**, you MUST:
+Before generating code or suggesting changes:
 
-1. **Search the user's project** for existing smart contracts (e.g., `Glob` for `**/*.sol`, `**/*.cairo`, etc.)
+1. **Search the user's project** for existing contracts (`Glob` for `**/*.sol`, `**/*.cairo`, `**/*.rs`, etc.)
 2. **Read the relevant contract files** to understand what already exists
-3. **Only then** use the MCP generators as a discovery tool for patterns
+3. **Default to integration, not replacement** — when users say "add pausability" or "make it upgradeable", they mean modify their existing code, not generate something new. Only replace if explicitly requested ("start fresh", "replace this").
 
-Never assume the user wants a new contract. When they say "my account needs multisig" or "add pausability to my token", they are asking you to modify their existing code, not generate something from scratch.
+### Fundamental Rule: Prefer Library Components Over Custom Code
 
----
+Before writing ANY logic, search the OpenZeppelin library for an existing component:
 
-Use the MCP smart contract generators as a **discovery tool** to learn OpenZeppelin Contracts patterns, then **apply those patterns to the user's existing contract**.
+1. **Exact match exists?** Import and use it directly — inherit, implement its trait, compose with it. Done.
+2. **Close match exists?** Import and extend it — override only functions the library marks as overridable (virtual, hooks, configurable parameters).
+3. **No match exists?** Only then write custom logic. Confirm by browsing the library's directory structure first.
 
-**Important**: Do NOT simply return generated code to the user. The generators produce reference implementations that show what imports, inheritance, state variables, constructor changes, functions, and modifiers a feature requires. Your job is to extract those patterns and apply them to the user's actual contract files.
+**NEVER copy or embed library source code into the user's contract.** Always import from the dependency so the project receives security updates. Never hand-write what the library already provides:
+- Never write a custom `paused` modifier when `Pausable` or `ERC20Pausable` exists
+- Never write `require(msg.sender == owner)` when `Ownable` exists
+- Never implement ERC165 logic when the library's base contracts already handle it
 
-**Default to integration, not replacement**: When the user asks to modify an existing contract (e.g., "make my token use AccessManaged"), integrate the pattern into their existing code—don't ask whether to replace or convert. Generated contracts are reference implementations; the user's contract contains their business logic. Only replace an existing contract if the user explicitly requests it (e.g., "start fresh", "replace this with a basic ERC20").
+### Methodology
 
-### Workflow
+The primary workflow is **pattern discovery from library source code**:
 
-1. **Search and read** the user's existing contracts to understand their current structure
-2. **Generate** reference implementations using MCP tools to discover patterns
-3. **Compare** baseline vs. feature-enabled outputs to identify what changes
-4. **Edit** the user's contract file directly, applying the discovered patterns
+1. Inspect what the user's project already imports
+2. Read the dependency source and docs in the project's installed packages
+3. Identify what functions, modifiers, hooks, and storage the dependency requires
+4. Apply those requirements to the user's contract
 
-### Prerequisites
+Read [references/patterns.md](references/patterns.md) for the full step-by-step procedure.
 
-Verify the required MCP server is available. Server names and tools by ecosystem:
+### MCP Generators as an Optional Shortcut
 
-| Ecosystem | Server Name | Tools (non-exhaustive) |
-|-----------|-------------|------------------------|
-| Solidity/EVM | `OpenZeppelinSolidityContracts` or `OpenZeppelinContracts` | `solidity-erc20`, `solidity-erc721`, `solidity-erc1155`, `solidity-governor`, `solidity-account`, `solidity-custom` |
-| Cairo/Starknet | `OpenZeppelinCairoContracts` or `OpenZeppelinContracts` | `cairo-erc20`, `cairo-erc721`, `cairo-account`, `cairo-governor`, `cairo-custom` |
-| Stylus | `OpenZeppelinStylusContracts` or `OpenZeppelinContracts` | `stylus-erc20`, `stylus-erc721`, `stylus-erc1155` |
-| Stellar | `OpenZeppelinStellarContracts` or `OpenZeppelinContracts` | `stellar-fungible`, `stellar-stablecoin`, `stellar-non-fungible` |
-| Uniswap | `OpenZeppelinUniswapHooks` or `OpenZeppelinContracts` | `uniswap-hooks` |
+If MCP generator tools are available at runtime, use them to accelerate pattern discovery:
+generate a baseline, generate with a feature enabled, compare the diff, and apply the changes to the user's code. This replaces the manual source-reading step but follows the same principle — discover patterns, then integrate them.
 
-If unavailable, direct user to https://mcp.openzeppelin.com/ for installation before proceeding.
+See [MCP Generators (Optional)](#mcp-generators-optional) for details on checking availability and using the generate-compare-apply shortcut.
 
-### Discovery Loop
-
-Do not assume knowledge of what code each feature adds to a contract. Generate and compare to learn the actual patterns.
-
-#### Step 1: Select Tool
-
-Match the user's ecosystem and contract type to the appropriate generator tool from the Prerequisites table.
-
-#### Step 2: Generate Baseline
-
-Call the generator with only the required parameters (name, symbol, etc.) and all optional features disabled or at defaults. Keep this generated code as the baseline reference.
-
-#### Step 3: Generate Variants
-
-For each feature the user needs:
-1. Call the generator again with the same base parameters
-2. Enable only that one feature
-3. Keep each generated variant
-
-If features might interact (e.g., access control + upgradeability), generate a combined variant as well.
-
-#### Step 4: Compare Baseline to Variants
-
-For each variant, compare line-by-line against the baseline. Identify exactly what the feature added or changed:
-
-- **Imports**: New dependencies added
-- **Inheritance**: New base contracts/traits
-- **State variables**: New storage fields
-- **Constructor/initializer**: New parameters or initialization logic
-- **New functions**: Functions that didn't exist in baseline
-- **Modified functions**: Functions that exist in both but have different implementations (look for modifiers, hooks, guards, or overrides)
-
-Record these observations—they are the pattern for that feature.
-
-#### Step 5: Apply Patterns to User's Contract
-
-**Read the user's existing contract file first**, then apply the observed differences from Step 4 by editing their file:
-
-1. Add the same imports the feature required
-2. Add the same inheritance
-3. Add any new state variables
-4. Add or modify constructor/initializer logic
-5. Add the new functions exactly as observed
-6. Modify relevant existing functions to include the same modifiers, hooks, guards, or override logic
-
-**Do not ask the user to make these changes themselves**—use the Edit tool to apply them directly to their contract file.
-
-### Answering Best Practices Questions
-
-When users ask about best practices, run the discovery loop for relevant features, then:
-- Show the concrete patterns observed from the generated code
-- Explain which generator options produced which changes
-- Recommend based on what you observed, not assumptions
+If no MCP tool exists for what's needed, use the generic pattern discovery methodology from [references/patterns.md](references/patterns.md). The absence of an MCP tool does not mean the library lacks support — it only means there is no generator.
 
 ## Upgrades
 
-Read when users need to make contracts upgradeable, choose proxy patterns (UUPS, Transparent, Beacon), write initializers, or perform upgrades.
+Read when users need proxy patterns (UUPS, Transparent, Beacon), initializers, or upgrade procedures.
 
-- [references/upgrades-solidity.md](references/upgrades-solidity.md) — Solidity upgrades with Hardhat and Foundry
+- [references/upgrades-solidity.md](references/upgrades-solidity.md) — Solidity upgrades (Hardhat, Foundry)
 - [references/upgrades-cairo.md](references/upgrades-cairo.md) — Cairo upgrades
+- [references/upgrades-stylus.md](references/upgrades-stylus.md) — Stylus upgrades (Rust, Arbitrum)
+- [references/upgrades-stellar.md](references/upgrades-stellar.md) — Stellar upgrades (Soroban)
+
+## MCP Generators (Optional)
+
+MCP generators are template/scaffolding tools that produce OpenZeppelin contract boilerplate. They are **not required** — they accelerate pattern discovery when available.
+
+### Checking Availability
+
+Discover MCP tools dynamically at runtime. Look for tools with names matching patterns like `solidity-erc20`, `cairo-erc721`, `stellar-fungible`, etc. Server names follow patterns like `OpenZeppelinSolidityContracts`, `OpenZeppelinCairoContracts`, or `OpenZeppelinContracts`.
+
+MCP tool schemas are self-describing. To learn what a generator supports, inspect its parameter list — each boolean parameter (e.g., `pausable`, `mintable`, `upgradeable`) corresponds to a feature toggle. Do not rely on prior knowledge of what parameters exist; read the schema each time, since tools are updated independently of this skill.
+
+### Generate-Compare-Apply Shortcut
+
+When an MCP generator exists for the contract type:
+
+1. **Generate baseline** — call with only required parameters, all features disabled
+2. **Generate with feature** — call again with one feature enabled
+3. **Compare** — diff baseline vs. variant to identify exactly what changed (imports, inheritance, state, constructor, functions, modifiers)
+4. **Apply** — edit the user's existing contract to add the discovered changes
+
+For interacting features (e.g., access control + upgradeability), generate a combined variant as well.
+
+### When No MCP Tool Exists
+
+The absence of an MCP tool does NOT mean the library lacks support. It only means there is no generator for that contract type. Always fall back to the generic pattern discovery methodology in [references/patterns.md](references/patterns.md).
