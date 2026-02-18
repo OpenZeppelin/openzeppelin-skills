@@ -13,7 +13,7 @@ Run each test **one at a time, using a fresh subagent per test** (a new conversa
 **Before running any tests**, create the output directory:
 
 ```
-/Users/eric/git/openzeppelin-skills/test-output/
+.test-output/
 ```
 
 For each test, the subagent performs two phases. Keep them separate.
@@ -22,13 +22,13 @@ For each test, the subagent performs two phases. Keep them separate.
 
 Send the subagent the following instructions along with the test prompt:
 
-> You are simulating a coding agent with the `openzeppelin-contracts` skill active. The skill is defined at `skills/openzeppelin-contracts/SKILL.md` (relative to the repo root at `/Users/eric/git/openzeppelin-skills`).
+> You are simulating a coding agent with the `openzeppelin-contracts` skill active. The skill is defined at `skills/openzeppelin-contracts/SKILL.md` (relative to the repo root).
 >
 > 1. Read `SKILL.md`.
 > 2. Determine whether the skill would trigger for this prompt — the trigger condition is in the frontmatter `description` field. If the skill would NOT trigger, produce a normal response with no OpenZeppelin context.
 > 3. If the skill triggers: read whichever reference files `SKILL.md` instructs you to read for this type of request (setup, upgrades, patterns, etc.). Do not pre-load all references — load only what the skill says is relevant to the prompt.
 > 4. Produce the response you would give to the user. Do NOT self-evaluate — just produce the response.
-> 5. Write your response to `/Users/eric/git/openzeppelin-skills/test-output/test-[ID].md` using the Write tool, where `[ID]` is the test ID (e.g., `1.1`, `3.4`). Use this exact format:
+> 5. Write your response to `.test-output/test-[ID].md` using the Write tool, where `[ID]` is the test ID (e.g., `1.1`, `3.4`). Use this exact format:
 >
 > ```
 > === TEST [ID] RESPONSE ===
@@ -365,6 +365,19 @@ Apply these checks to every test unless noted otherwise:
 - Reads `references/upgrades-solidity.md`
 - Passes the deployer address (owner) as the second constructor argument to `TransparentUpgradeableProxy` — NOT a `ProxyAdmin` contract address
 - Does NOT instruct the user to deploy a `ProxyAdmin` separately and pass it in
+
+### 5.7 Cross-major-version upgrade restriction (v4 → v5)
+
+**Prompt:**
+> I have a deployed proxy whose implementation uses OpenZeppelin v4. I want to upgrade it to a new implementation that uses v5. How do I do that?
+
+**Expected:**
+- Reads `references/upgrades-solidity.md`
+- Warns that upgrading a proxy from a v4 implementation to a v5 implementation is not supported
+- Explains the cause: v4 uses sequential storage, v5 uses namespaced storage (ERC-7201), making the layouts incompatible
+- Recommends deploying new proxies with v5 implementations and migrating users to the new address instead
+- Does NOT provide steps for an in-place upgrade from v4 to v5
+- Clarifies that migrating the codebase to v5 is encouraged, as long as the existing proxies are not upgraded in place
 
 ---
 

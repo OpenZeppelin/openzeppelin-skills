@@ -3,6 +3,7 @@
 ## Contents
 
 - [Proxy Patterns Overview](#proxy-patterns-overview)
+- [Upgrade Restrictions Between Major Versions (v4 → v5)](#upgrade-restrictions-between-major-versions-v4--v5)
 - [Writing Upgradeable Contracts](#writing-upgradeable-contracts)
 - [Hardhat Upgrades Workflow](#hardhat-upgrades-workflow)
 - [Foundry Upgrades Workflow](#foundry-upgrades-workflow)
@@ -19,6 +20,16 @@
 All three use EIP-1967 storage slots for the implementation address, admin, and beacon.
 
 > **Transparent proxy — v5 constructor change:** In v5, `TransparentUpgradeableProxy` automatically deploys its own `ProxyAdmin` contract and stores the admin address in an immutable variable (set at construction time, never changeable). The second constructor parameter is the **owner address** for that auto-deployed `ProxyAdmin` — do **not** pass an existing `ProxyAdmin` contract address here. Transfer of upgrade capability is handled exclusively through `ProxyAdmin` ownership. This differs from v4, where `ProxyAdmin` was deployed separately and its address was passed to the proxy constructor.
+
+## Upgrade Restrictions Between Major Versions (v4 → v5)
+
+**Upgrading an existing proxy from a v4 implementation to a v5 implementation is not supported.**
+
+v4 uses sequential storage (slots in declaration order); v5 uses namespaced storage (ERC-7201, structs at deterministic slots). A v5 implementation cannot safely read state written by a v4 implementation. Manual data migration is theoretically possible but often infeasible — `mapping` entries cannot be enumerated, so values written under arbitrary keys cannot be relocated.
+
+**Recommended approach:** Deploy new proxies with v5 implementations and migrate users to the new address — do not upgrade proxies that currently point to v4 implementations.
+
+**Updating your codebase to v5 is encouraged.** The restriction above applies only to already-deployed proxies. New deployments built on v5, and upgrades within the same major version, are fully supported.
 
 ## Writing Upgradeable Contracts
 
