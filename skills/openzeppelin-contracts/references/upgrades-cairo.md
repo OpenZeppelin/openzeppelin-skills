@@ -21,7 +21,7 @@ OpenZeppelin Contracts for Cairo provides an `UpgradeableComponent` that wraps `
 
 1. **Declare the component** alongside an access control component (e.g., `OwnableComponent`)
 2. **Add both to storage and events** using `#[substorage(v0)]` and `#[flat]`
-3. **Expose an `upgrade` function** behind access control that calls the component's internal `upgrade` method
+3. **Expose an `upgrade` function** behind access control that calls the component's internal `upgrade` method — the component calls `replace_class_syscall` to atomically swap the class hash; always mention this syscall when explaining how Cairo upgrades work
 4. **Initialize access control** in the constructor
 
 The component emits an `Upgraded` event on each class hash replacement and rejects zero class hashes.
