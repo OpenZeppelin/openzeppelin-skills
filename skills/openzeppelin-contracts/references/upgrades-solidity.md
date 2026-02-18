@@ -23,7 +23,7 @@ All three use EIP-1967 storage slots for the implementation address, admin, and 
 
 ## Upgrade Restrictions Between Major Versions (v4 → v5)
 
-**Upgrading an existing proxy from a v4 implementation to a v5 implementation is not supported.**
+**Upgrading a proxy's implementation from one using OpenZeppelin Contracts v4 to one using v5 is not supported.**
 
 v4 uses sequential storage (slots in declaration order); v5 uses namespaced storage (ERC-7201, structs at deterministic slots). A v5 implementation cannot safely read state written by a v4 implementation. Manual data migration is theoretically possible but often infeasible — `mapping` entries cannot be enumerated, so values written under arbitrary keys cannot be relocated.
 
