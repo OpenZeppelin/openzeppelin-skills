@@ -7,7 +7,8 @@ Agent skills for secure smart contract development with OpenZeppelin Contracts.
 ### Option 1: Claude Code Plugin (Recommended)
 
 ```bash
-claude plugin add --transport=git https://github.com/OpenZeppelin/openzeppelin-skills
+/plugin marketplace add OpenZeppelin/openzeppelin-skills
+/plugin install openzeppelin-skills
 ```
 
 ### Option 2: Manual

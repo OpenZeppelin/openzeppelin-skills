@@ -1,0 +1,15 @@
+{
+  "name": "openzeppelin-skills",
+  "owner": {
+    "name": "OpenZeppelin"
+  },
+  "metadata": {
+    "description": "Skills for secure smart contract development with OpenZeppelin Contracts"
+  },
+  "plugins": [
+    {
+      "name": "openzeppelin-skills",
+      "source": "./"
+    }
+  ]
+}
