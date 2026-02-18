@@ -65,7 +65,7 @@ Stylus does not support the `immutable` keyword. Instead of storing `__self = ad
 
 `only_proxy()` also verifies that the ERC-1967 implementation slot is non-zero and that the proxy-stored version matches the implementation's `VERSION_NUMBER`.
 
-See the `examples/` directory of the rust-contracts-stylus repository for full integration examples.
+> **Examples:** See the `examples/` directory of the [rust-contracts-stylus repository](https://github.com/OpenZeppelin/rust-contracts-stylus) for full working integration examples of UUPS, Beacon, and related patterns.
 
 ## Access Control
 

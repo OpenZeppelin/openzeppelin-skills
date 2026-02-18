@@ -101,6 +101,12 @@ Where to find components within each repository:
 
 Browse these paths first when searching for a component.
 
+## Known Version-Specific Gotchas
+
+Do not assume override points from prior knowledge — always verify by reading the installed source. Functions that were `virtual` in an older version may no longer be in the current one, making them non-overridable. The source NatSpec will indicate the correct override point (e.g., `NOTE: This function is not virtual, {X} should be overridden instead`).
+
+A known example: the Solidity ERC-20 transfer hook changed between v4 and v5. Read the installed `ERC20.sol` to confirm which function is `virtual` before recommending an override.
+
 ## When to Search the Web
 
 Use web search (`WebSearch`, `WebFetch`) only when:

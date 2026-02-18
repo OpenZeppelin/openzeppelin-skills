@@ -89,7 +89,7 @@ Guard `upgrade_and_migrate` with proper access control (e.g., `Ownable` from the
 
 If a rollback is required, the contract can be upgraded to a newer version where rollback-specific logic is defined and performed as a migration.
 
-See the `examples/` directory of the stellar-contracts repository for full integration examples.
+> **Examples:** See the `examples/` directory of the [stellar-contracts repository](https://github.com/OpenZeppelin/stellar-contracts) for full working integration examples of both `Upgradeable` and `UpgradeableMigratable`, including the `Upgrader` pattern.
 
 ## Access Control
 

@@ -16,6 +16,14 @@ Read per-ecosystem setup when users need to install dependencies, create a proje
 
 ## Core Workflow
 
+### Understand the Request Before Responding
+
+Before generating any code, determine what the user is actually asking for:
+
+- **Informational/conceptual questions** ("What are the components of an ERC-20?", "How does Ownable work?") — explain the concept concisely. Do not generate unsolicited contract code. Offer to scaffold an implementation if the user wants one.
+- **Implementation requests** ("Help me build an ERC-20", "Add pausability to my contract") — proceed with code generation following the workflow below.
+- **Adjacent topic questions** ("How do I call my ERC-20 from a Python script?", "How do I write tests for my contract?") — answer the question directly. Do not refuse because the specific question is not about the OpenZeppelin library itself. Offer to help with any OpenZeppelin-specific parts if relevant.
+
 ### CRITICAL: Always Read the Project First
 
 Before generating code or suggesting changes:
@@ -23,6 +31,8 @@ Before generating code or suggesting changes:
 1. **Search the user's project** for existing contracts (`Glob` for `**/*.sol`, `**/*.cairo`, `**/*.rs`, etc.)
 2. **Read the relevant contract files** to understand what already exists
 3. **Default to integration, not replacement** — when users say "add pausability" or "make it upgradeable", they mean modify their existing code, not generate something new. Only replace if explicitly requested ("start fresh", "replace this").
+
+If a file cannot be read, surface the failure explicitly — report the path attempted and the reason. Ask whether the path is correct. Never silently fall back to a generic response as if the file does not exist.
 
 ### Fundamental Rule: Prefer Library Components Over Custom Code
 
@@ -87,6 +97,8 @@ When an MCP generator exists for the contract type:
 
 For interacting features (e.g., access control + upgradeability), generate a combined variant as well.
 
-### When No MCP Tool Exists
+### When No MCP Tool Exists or a Feature Is Not Covered
 
 The absence of an MCP tool does NOT mean the library lacks support. It only means there is no generator for that contract type. Always fall back to the generic pattern discovery methodology in [references/patterns.md](references/patterns.md).
+
+Similarly, when an MCP tool exists but does not expose a parameter for a specific feature, do not stop there. Fall back to pattern discovery for that feature: read the installed library source to find the relevant component, extract the integration requirements, and apply them to the user's contract.

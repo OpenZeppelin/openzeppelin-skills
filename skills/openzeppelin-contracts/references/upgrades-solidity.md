@@ -18,6 +18,8 @@
 
 All three use EIP-1967 storage slots for the implementation address, admin, and beacon.
 
+> **Transparent proxy — v5 constructor change:** In v5, `TransparentUpgradeableProxy` automatically deploys its own `ProxyAdmin` contract and stores the admin address in an immutable variable (set at construction time, never changeable). The second constructor parameter is the **owner address** for that auto-deployed `ProxyAdmin` — do **not** pass an existing `ProxyAdmin` contract address here. Transfer of upgrade capability is handled exclusively through `ProxyAdmin` ownership. This differs from v4, where `ProxyAdmin` was deployed separately and its address was passed to the proxy constructor.
+
 ## Writing Upgradeable Contracts
 
 ### Use initializers instead of constructors
@@ -90,7 +92,7 @@ Benefits over legacy storage gaps: safe to add variables to base contracts, inhe
 
 #### Computing ERC-7201 storage locations
 
-When generating namespaced storage code, always compute the actual `STORAGE_LOCATION` constant. Never leave placeholder values like `0x...`.
+When generating namespaced storage code, always compute the actual `STORAGE_LOCATION` constant. **Use the Bash tool to run the command below** with the actual namespace id and embed the computed value directly in the generated code. Never leave placeholder values like `0x...`.
 
 The formula is: `keccak256(abi.encode(uint256(keccak256(id)) - 1)) & ~bytes32(uint256(0xff))` where `id` is the namespace string (e.g., `"example.main"`).
 
@@ -100,7 +102,7 @@ The formula is: `keccak256(abi.encode(uint256(keccak256(id)) - 1)) & ~bytes32(ui
 node -e "const{keccak256,toUtf8Bytes,zeroPadValue,toBeHex}=require('ethers');const id=process.argv[1];const h=BigInt(keccak256(toUtf8Bytes(id)))-1n;console.log(toBeHex(BigInt(keccak256(zeroPadValue(toBeHex(h),32)))&~0xffn,32))" "example.main"
 ```
 
-Replace `"example.main"` with the actual namespace id.
+Replace `"example.main"` with the actual namespace id, run the command, and use the output as the constant value.
 
 ### Unsafe operations
 
