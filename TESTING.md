@@ -1,6 +1,6 @@
 # Testing Guide
 
-Test suite for the `openzeppelin-contracts` skill and its references. The `openzeppelin-security` skill is not yet implemented (placeholder) and is not covered here.
+Test suite for the `openzeppelin-contracts` skill and its references.
 
 ## Instructions for the Test Runner
 

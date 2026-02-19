@@ -1,6 +1,6 @@
 # OpenZeppelin Skills
 
-Agent skills for secure smart contract development with OpenZeppelin Contracts.
+Agent skills for smart contract development with OpenZeppelin Contracts libraries.
 
 ## Installation
 
@@ -23,8 +23,7 @@ cp -r skills/openzeppelin-contracts ~/.claude/skills/
 
 | Skill | Purpose |
 |-------|---------|
-| [openzeppelin-contracts](skills/openzeppelin-contracts/) | Setup, patterns, and upgrades for OpenZeppelin Contracts across Solidity, Cairo, Stylus, and Stellar |
-| [openzeppelin-security](skills/openzeppelin-security/) | Secure smart contract development best practices |
+| [openzeppelin-contracts](skills/openzeppelin-contracts/) | Setup, patterns, and upgrades using OpenZeppelin Contracts libraries across various ecosystems |
 
 ## License
 
