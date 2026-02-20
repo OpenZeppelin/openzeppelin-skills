@@ -38,7 +38,7 @@ v4 uses sequential storage (slots in declaration order); v5 uses namespaced stor
 Proxy contracts delegatecall into the implementation. Constructors run only when the implementation itself is deployed, not when a proxy is created. Replace constructors with initializer functions:
 
 ```solidity
-import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 contract MyToken is Initializable, ERC20Upgradeable, OwnableUpgradeable {
     /// @custom:oz-upgrades-unsafe-allow constructor
@@ -46,9 +46,9 @@ contract MyToken is Initializable, ERC20Upgradeable, OwnableUpgradeable {
         _disableInitializers(); // lock the implementation
     }
 
-    function initialize(address owner) public initializer {
+    function initialize(address initialOwner) public initializer {
         __ERC20_init("MyToken", "MTK");
-        __Ownable_init(owner);
+        __Ownable_init(initialOwner);
     }
 }
 ```
