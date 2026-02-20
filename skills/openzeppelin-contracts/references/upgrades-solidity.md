@@ -61,7 +61,7 @@ Key rules:
 
 ### Use the upgradeable package
 
-Import from `@openzeppelin/contracts-upgradeable` for base contracts (e.g., `ERC20Upgradeable`, `OwnableUpgradeable`). Import interfaces and libraries from `@openzeppelin/contracts`.
+Import from `@openzeppelin/contracts-upgradeable` for base contracts (e.g., `ERC20Upgradeable`, `OwnableUpgradeable`). Import interfaces and libraries from `@openzeppelin/contracts`. In v5.5+, `Initializable` and `UUPSUpgradeable` should also be imported directly from `@openzeppelin/contracts` — aliases in the upgradeable package will be removed in the next major release.
 
 ### Storage layout rules
 
