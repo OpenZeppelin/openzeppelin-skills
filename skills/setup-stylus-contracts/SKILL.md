@@ -1,3 +1,8 @@
+---
+name: setup-stylus-contracts
+description: "Set up a Stylus smart contract project with OpenZeppelin Contracts for Stylus on Arbitrum. Use when users need to: (1) install Rust toolchain and WASM target for Stylus, (2) create a new Cargo Stylus project, (3) add OpenZeppelin Stylus dependencies to Cargo.toml, or (4) understand Stylus import conventions and storage patterns for OpenZeppelin."
+---
+
 # Stylus Setup
 
 ## Rust & Cargo Stylus Setup

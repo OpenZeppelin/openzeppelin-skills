@@ -1,3 +1,8 @@
+---
+name: setup-cairo-contracts
+description: "Set up a Cairo smart contract project with OpenZeppelin Contracts for Cairo on Starknet. Use when users need to: (1) create a new Scarb/Starknet project, (2) add OpenZeppelin Contracts for Cairo dependencies to Scarb.toml, (3) configure individual or umbrella OpenZeppelin packages, or (4) understand Cairo import conventions and component patterns for OpenZeppelin."
+---
+
 # Cairo Setup
 
 ## Project Scaffolding

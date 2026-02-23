@@ -1,3 +1,8 @@
+---
+name: upgrade-solidity-contracts
+description: "Upgrade Solidity smart contracts using OpenZeppelin proxy patterns. Use when users need to: (1) make contracts upgradeable with UUPS, Transparent, or Beacon proxies, (2) write initializers instead of constructors, (3) use the Hardhat or Foundry upgrades plugins, (4) understand storage layout rules and ERC-7201 namespaced storage, (5) validate upgrade safety, (6) manage proxy deployments and upgrades, or (7) understand upgrade restrictions between OpenZeppelin Contracts major versions."
+---
+
 # Solidity Upgrades
 
 ## Contents
