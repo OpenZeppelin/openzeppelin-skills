@@ -41,12 +41,21 @@ Available individual packages: `openzeppelin_access`, `openzeppelin_account`, `o
 
 ## Import Conventions
 
-Imports use the individual package name as root, regardless of whether the umbrella or individual dependency is used:
+The import path depends on which dependency is declared:
+
+- **Umbrella package** (`openzeppelin = "..."`): use `openzeppelin::` as the root
+- **Individual packages** (`openzeppelin_token = "..."`): use the package name as the root
 
 ```cairo
+// Individual packages
 use openzeppelin_token::erc20::{ERC20Component, ERC20HooksEmptyImpl};
 use openzeppelin_access::ownable::OwnableComponent;
 use openzeppelin_upgrades::UpgradeableComponent;
+
+// Umbrella package equivalents
+use openzeppelin::token::erc20::{ERC20Component, ERC20HooksEmptyImpl};
+use openzeppelin::access::ownable::OwnableComponent;
+use openzeppelin::upgrades::UpgradeableComponent;
 ```
 
 Components are integrated via the `component!` macro, embedded impls, and substorage:
