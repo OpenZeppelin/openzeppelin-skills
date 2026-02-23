@@ -1,14 +1,14 @@
 # Testing Guide
 
-Test suite for the `openzeppelin-contracts` skill and its references.
+Test suite for the OpenZeppelin skills.
 
 ## Instructions for the Test Runner
 
-You are testing an AI coding agent's behavior when the `openzeppelin-contracts` skill is active.
+You are testing an AI coding agent's behavior when the OpenZeppelin skills are active.
 
 ### Simulation Protocol
 
-Run each test **one at a time, using a fresh subagent per test** (a new conversation with no prior context). This is essential: if the agent running the simulation already has the evaluation criteria in context, the simulation is invalid — it will draw on that knowledge to influence its behavior.
+Run each test **using a fresh subagent per test** (a new conversation with no prior context). This is essential: if the agent running the simulation already has the evaluation criteria in context, the simulation is invalid — it will draw on that knowledge to influence its behavior. Tests may be run in parallel.
 
 **Before running any tests**, create the output directory:
 
@@ -16,19 +16,18 @@ Run each test **one at a time, using a fresh subagent per test** (a new conversa
 .test-output/
 ```
 
-For each test, the subagent performs two phases. Keep them separate.
+Each test has two phases. Keep them separate — the subagent must not see the evaluation criteria.
 
 **Phase 1 — Simulate (subagent produces the response):**
 
-Send the subagent the following instructions along with the test prompt:
+Launch a subagent with the following instructions along with the test prompt:
 
-> You are simulating a coding agent with the `openzeppelin-contracts` skill active. The skill is defined at `skills/openzeppelin-contracts/SKILL.md` (relative to the repo root).
+> You are simulating a coding agent with the OpenZeppelin skills active. The skills are defined in the `skills/` directory (relative to the repo root), each in their own folder with a `SKILL.md` file.
 >
-> 1. Read `SKILL.md`.
-> 2. Determine whether the skill would trigger for this prompt — the trigger condition is in the frontmatter `description` field. If the skill would NOT trigger, produce a normal response with no OpenZeppelin context.
-> 3. If the skill triggers: read whichever reference files `SKILL.md` instructs you to read for this type of request (setup, upgrades, patterns, etc.). Do not pre-load all references — load only what the skill says is relevant to the prompt.
-> 4. Produce the response you would give to the user. Do NOT self-evaluate — just produce the response.
-> 5. Write your response to `.test-output/test-[ID].md` using the Write tool, where `[ID]` is the test ID (e.g., `1.1`, `3.4`). Use this exact format:
+> 1. Read the `description` frontmatter of each skill to determine which skill(s) would trigger for this prompt. If no skill would trigger, produce a normal response with no OpenZeppelin context.
+> 2. If one or more skills trigger: read the SKILL.md body of the relevant skill(s). Do not pre-load all skills — load only what is relevant to the prompt.
+> 3. Produce the response you would give to the user. Do NOT self-evaluate — just produce the response.
+> 4. Output your response as your final message. Use this exact format:
 >
 > ```
 > === TEST [ID] RESPONSE ===
@@ -40,7 +39,7 @@ For tests with a **Setup** step, tell the subagent to treat the described files 
 
 **Phase 2 — Evaluate (you score the response):**
 
-Read the subagent's output from `test-output/test-[ID].md`, compare it against the **Expected** checklist for that test, and record:
+The subagent's response is returned to you via the Task tool result. Write it to `.test-output/test-[ID].md` so the human can review it, then compare it against the **Expected** checklist for that test and record:
 - **PASS** — all expected behaviors observed
 - **PARTIAL** — some expected behaviors missing
 - **FAIL** — incorrect behavior or critical expectation violated
@@ -77,8 +76,7 @@ Apply these checks to every test unless noted otherwise:
 > Help me set up a new Foundry project with OpenZeppelin Contracts.
 
 **Expected:**
-- Skill activates
-- Reads `references/setup-solidity.md`
+- `setup-solidity-contracts` skill activates
 - Provides `forge install` command with version tag
 - Includes remappings.txt configuration
 
@@ -111,7 +109,7 @@ Apply these checks to every test unless noted otherwise:
 > Create a new Hardhat project with OpenZeppelin Contracts and the upgradeable variant.
 
 **Expected:**
-- Reads `references/setup-solidity.md`
+- `setup-solidity-contracts` skill activates
 - Includes `npx hardhat init` (or `--init` for v3)
 - Includes both `npm install @openzeppelin/contracts` and `@openzeppelin/contracts-upgradeable`
 - Does NOT hard-code a stale version number for npm packages
@@ -122,7 +120,7 @@ Apply these checks to every test unless noted otherwise:
 > Set up a Foundry project with OpenZeppelin upgradeable contracts.
 
 **Expected:**
-- Reads `references/setup-solidity.md`
+- `setup-solidity-contracts` skill activates
 - `forge install` commands with version tags
 - Correct remappings for upgradeable — `@openzeppelin/contracts/` must route through the upgradeable submodule: `@openzeppelin/contracts/=lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/`
 - Mentions looking up the latest release
@@ -135,6 +133,7 @@ Apply these checks to every test unless noted otherwise:
 > Add OpenZeppelin Contracts to this project.
 
 **Expected:**
+- `setup-solidity-contracts` skill activates
 - Detects Foundry from `foundry.toml` (does not ask which framework)
 - Uses `forge install` (not `npm install`)
 - Provides correct `remappings.txt`
@@ -145,7 +144,7 @@ Apply these checks to every test unless noted otherwise:
 > Set up a new Starknet project with OpenZeppelin Contracts for Cairo.
 
 **Expected:**
-- Reads `references/setup-cairo.md`
+- `setup-cairo-contracts` skill activates
 - Uses `starkup` installer and `scarb new` with `--test-runner=starknet-foundry`
 - Shows `Scarb.toml` dependency configuration with `openzeppelin` or individual packages
 - Mentions looking up the current version from docs
@@ -157,7 +156,7 @@ Apply these checks to every test unless noted otherwise:
 > Set up a new Stylus project with OpenZeppelin Contracts.
 
 **Expected:**
-- Reads `references/setup-stylus.md`
+- `setup-stylus-contracts` skill activates
 - Includes Rust toolchain + `wasm32-unknown-unknown` target
 - `cargo stylus new`
 - `Cargo.toml` with exact-pinned dependency `openzeppelin-stylus = "=<VERSION>"`, `export-abi` feature flag, and `crate-type = ["lib", "cdylib"]`
@@ -168,7 +167,7 @@ Apply these checks to every test unless noted otherwise:
 > Set up a new Soroban project with OpenZeppelin Stellar Contracts.
 
 **Expected:**
-- Reads `references/setup-stellar.md`
+- `setup-stellar-contracts` skill activates
 - Includes Rust toolchain + `wasm32v1-none` target + Stellar CLI
 - `stellar contract init`
 - Workspace dependency pattern: `[workspace.dependencies]` in root `Cargo.toml` with exact-pinned versions (`"=<VERSION>"`), then `{ workspace = true }` in per-contract `Cargo.toml`
@@ -206,7 +205,7 @@ Apply these checks to every test unless noted otherwise:
 > I have a Cairo contract using OwnableComponent. I want to also make it pausable. Show me how to integrate PausableComponent by reading the OpenZeppelin Cairo library source.
 
 **Expected:**
-- Reads `references/patterns.md` or follows its methodology
+- `develop-contracts` skill activates and follows the pattern discovery methodology
 - Attempts to find the installed dependency or repository source
 - Identifies integration requirements (component macro, substorage, embedded impls)
 - Applies minimal changes to the existing contract
@@ -302,7 +301,7 @@ Apply these checks to every test unless noted otherwise:
 > Make my existing Solidity ERC-20 contract upgradeable using the UUPS pattern. I'm using Foundry.
 
 **Expected:**
-- Reads `references/upgrades-solidity.md`
+- `upgrade-solidity-contracts` skill activates
 - Adds `Initializable`, uses `initializer` modifier
 - Replaces constructor with `initialize` function, calls `_disableInitializers()` in constructor
 - Adds `UUPSUpgradeable` with `_authorizeUpgrade` override
@@ -315,7 +314,7 @@ Apply these checks to every test unless noted otherwise:
 > I need to add custom storage to my upgradeable Solidity contract using ERC-7201 namespaced storage. The namespace should be "myproject.token.storage" with a uint256 field called "cap" and a mapping from address to bool called "authorized".
 
 **Expected:**
-- Reads `references/upgrades-solidity.md`
+- `upgrade-solidity-contracts` skill activates
 - Generates the `@custom:storage-location` annotated struct
 - Computes the actual `STORAGE_LOCATION` constant (not a placeholder `0x...`)
 - Provides the `_getStorage()` accessor function
@@ -327,7 +326,7 @@ Apply these checks to every test unless noted otherwise:
 > I want to upgrade my Solidity contract V1 to V2. In V2, I reordered two state variables and removed one. Is this safe?
 
 **Expected:**
-- Reads `references/upgrades-solidity.md`
+- `upgrade-solidity-contracts` skill activates
 - Warns that reordering and removing state variables breaks storage compatibility
 - Explains the rules (never reorder, remove, or change types; only append)
 - Suggests using namespaced storage for better safety
@@ -338,7 +337,7 @@ Apply these checks to every test unless noted otherwise:
 > Show me how to deploy and then upgrade a UUPS proxy using the Hardhat upgrades plugin.
 
 **Expected:**
-- Reads `references/upgrades-solidity.md`
+- `upgrade-solidity-contracts` skill activates
 - Includes plugin installation (`@openzeppelin/hardhat-upgrades`)
 - Describes `deployProxy` / `upgradeProxy` workflow
 - Mentions `.openzeppelin/` tracking files
@@ -350,7 +349,7 @@ Apply these checks to every test unless noted otherwise:
 > Write a Foundry test that proves a V1 to V2 UUPS upgrade preserves ERC-20 balances. V1 is a basic ERC-20 with minting. V2 adds a cap.
 
 **Expected:**
-- Reads `references/upgrades-solidity.md`
+- `upgrade-solidity-contracts` skill activates
 - Produces a test that: deploys proxy with V1, mints/transfers tokens, upgrades to V2, then asserts balances are unchanged
 - Uses `Upgrades.deployUUPSProxy` and `Upgrades.upgradeProxy` (or equivalent)
 - V2 uses `reinitializer(2)` if it needs new initialization logic
@@ -362,7 +361,7 @@ Apply these checks to every test unless noted otherwise:
 > Deploy a TransparentUpgradeableProxy for my contract. The admin should be my deployer address.
 
 **Expected:**
-- Reads `references/upgrades-solidity.md`
+- `upgrade-solidity-contracts` skill activates
 - Passes the deployer address (owner) as the second constructor argument to `TransparentUpgradeableProxy` — NOT a `ProxyAdmin` contract address
 - Does NOT instruct the user to deploy a `ProxyAdmin` separately and pass it in
 
@@ -372,7 +371,7 @@ Apply these checks to every test unless noted otherwise:
 > I have a deployed proxy whose implementation uses OpenZeppelin v4. I want to upgrade it to a new implementation that uses v5. How do I do that?
 
 **Expected:**
-- Reads `references/upgrades-solidity.md`
+- `upgrade-solidity-contracts` skill activates
 - Warns that upgrading a proxy from a v4 implementation to a v5 implementation is not supported
 - Explains the cause: v4 uses sequential storage, v5 uses namespaced storage (ERC-7201), making the layouts incompatible
 - Recommends deploying new proxies with v5 implementations and migrating users to the new address instead
@@ -389,7 +388,7 @@ Apply these checks to every test unless noted otherwise:
 > Make my Cairo contract upgradeable using OpenZeppelin's UpgradeableComponent.
 
 **Expected:**
-- Reads `references/upgrades-cairo.md`
+- `upgrade-cairo-contracts` skill activates
 - Describes the 4 integration steps (declare component, add to storage/events, expose upgrade function, initialize access control)
 - Emphasizes guarding the upgrade function with access control
 - Mentions `replace_class_syscall` as the underlying mechanism
@@ -400,7 +399,7 @@ Apply these checks to every test unless noted otherwise:
 > I'm upgrading my Cairo contract. I want to rename a storage variable from "total" to "total_supply". Is this safe?
 
 **Expected:**
-- Reads `references/upgrades-cairo.md`
+- `upgrade-cairo-contracts` skill activates
 - Warns this is NOT safe — Cairo storage slots are derived from variable names via `sn_keccak`
 - Renaming makes old data inaccessible
 - Advises adding a new variable instead
@@ -415,7 +414,7 @@ Apply these checks to every test unless noted otherwise:
 > Make my Soroban contract upgradeable using OpenZeppelin's upgradeable module. I don't need migration support.
 
 **Expected:**
-- Reads `references/upgrades-stellar.md`
+- `upgrade-stellar-contracts` skill activates
 - Recommends `#[derive(Upgradeable)]` and implementing `UpgradeableInternal`
 - Describes the `_require_auth` method requirement
 - Does NOT use a proxy pattern — explains Soroban's native upgrade model
@@ -426,7 +425,7 @@ Apply these checks to every test unless noted otherwise:
 > I need to upgrade my Soroban contract and migrate some storage entries during the upgrade. How do I do this atomically?
 
 **Expected:**
-- Reads `references/upgrades-stellar.md`
+- `upgrade-stellar-contracts` skill activates
 - Explains that the new implementation takes effect after the current invocation completes
 - Describes the `UpgradeableMigratable` derive macro and `UpgradeableMigratableInternal` trait
 - Describes the atomic `Upgrader` contract pattern for wrapping upgrade + migrate
@@ -438,7 +437,7 @@ Apply these checks to every test unless noted otherwise:
 > I'm upgrading my Soroban contract. Can I change the type of a value stored under an existing storage key?
 
 **Expected:**
-- Reads `references/upgrades-stellar.md`
+- `upgrade-stellar-contracts` skill activates
 - Warns this is NOT safe — incompatible changes corrupt state
 - Explains the rules: don't remove/rename keys, don't change types, adding new keys is safe
 - Notes that Soroban uses explicit string keys (e.g., `symbol_short!("OWNER")`)
@@ -453,7 +452,7 @@ Apply these checks to every test unless noted otherwise:
 > Make my Stylus contract upgradeable using the UUPS pattern.
 
 **Expected:**
-- Reads `references/upgrades-stylus.md`
+- `upgrade-stylus-contracts` skill activates
 - Describes the 5 integration steps (storage struct, constructor, initialize/set_version, IUUPSUpgradeable, IErc1822Proxiable)
 - Explains the two-step initialization (constructor sets `logic_flag`, `set_version()` via proxy)
 - References the `examples/` directory for full integration examples
@@ -464,7 +463,7 @@ Apply these checks to every test unless noted otherwise:
 > How does UUPS proxy detection work in Stylus? I know Solidity uses `address(this)` as an immutable, but Stylus doesn't support immutables.
 
 **Expected:**
-- Reads `references/upgrades-stylus.md`
+- `upgrade-stylus-contracts` skill activates
 - Explains the `logic_flag` mechanism (set in constructor, reads as false via delegatecall)
 - Describes `only_proxy()` checks (flag + ERC-1967 slot + version match)
 
@@ -474,7 +473,7 @@ Apply these checks to every test unless noted otherwise:
 > What maintenance do I need to plan for with a Stylus upgradeable contract?
 
 **Expected:**
-- Reads `references/upgrades-stylus.md`
+- `upgrade-stylus-contracts` skill activates
 - Mentions WASM reactivation requirement (365 days or after protocol upgrade)
 - Explains this is orthogonal to proxy upgrades but must be factored into planning
 
@@ -484,7 +483,7 @@ Apply these checks to every test unless noted otherwise:
 > How does storage layout work in Stylus compared to Solidity? I want to upgrade a Solidity proxy to use a Stylus implementation.
 
 **Expected:**
-- Reads `references/upgrades-stylus.md`
+- `upgrade-stylus-contracts` skill activates
 - Explains that `#[storage]` fields map to EVM slots identically to Solidity
 - Notes the difference: nested structs get deterministic slots (not flat sequential like Solidity inheritance)
 - Mentions that existing Solidity contracts can upgrade to Stylus implementations
@@ -502,7 +501,7 @@ Apply these checks to every test unless noted otherwise:
 
 **Expected:**
 - Detects Cairo ecosystem from `Scarb.toml`
-- Reads `references/setup-cairo.md` or follows Cairo-specific patterns
+- `setup-cairo-contracts` or `develop-contracts` skill activates
 - Uses Cairo component model (not Solidity inheritance)
 
 ### 9.2 Upgrade model comparison
@@ -511,7 +510,7 @@ Apply these checks to every test unless noted otherwise:
 > Compare how contract upgrades work across Solidity, Cairo, Stellar, and Stylus when using OpenZeppelin.
 
 **Expected:**
-- Reads multiple upgrade reference files
+- Multiple upgrade skills activate (`upgrade-solidity-contracts`, `upgrade-cairo-contracts`, `upgrade-stellar-contracts`, `upgrade-stylus-contracts`)
 - Correctly distinguishes: Solidity uses proxy patterns, Cairo uses `replace_class_syscall`, Stellar uses native WASM replacement, Stylus uses EVM proxy patterns (same as Solidity)
 - Notes that Cairo and Stellar don't need proxy contracts
 
