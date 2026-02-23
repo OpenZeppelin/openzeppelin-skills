@@ -107,7 +107,7 @@ When generating namespaced storage code, always compute the actual `STORAGE_LOCA
 
 The formula is: `keccak256(abi.encode(uint256(keccak256(id)) - 1)) & ~bytes32(uint256(0xff))` where `id` is the namespace string (e.g., `"example.main"`).
 
-**Node.js with ethers** (available in Hardhat projects and Foundry upgrades projects):
+**Node.js with ethers**:
 
 ```bash
 node -e "const{keccak256,toUtf8Bytes,zeroPadValue,toBeHex}=require('ethers');const id=process.argv[1];const h=BigInt(keccak256(toUtf8Bytes(id)))-1n;console.log(toBeHex(BigInt(keccak256(zeroPadValue(toBeHex(h),32)))&~0xffn,32))" "example.main"
