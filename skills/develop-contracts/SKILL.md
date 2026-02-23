@@ -1,6 +1,6 @@
 ---
 name: develop-contracts
-description: "Develop smart contracts using OpenZeppelin Contracts libraries. Use when users need to: (1) implement token standards (ERC20, ERC721, ERC1155, fungible/non-fungible), (2) add access control (Ownable, Roles, AccessManager), (3) add security features (Pausable, ReentrancyGuard), (4) implement governance (Governor, voting, timelocks), (5) build accounts (multisig, abstraction), (6) integrate any OpenZeppelin library component into existing contracts, or (7) apply any OpenZeppelin library pattern. Covers pattern discovery methodology, MCP generators, and library-first integration principles. Supports Solidity, Cairo, Stylus, and Stellar ecosystems."
+description: "Develop smart contracts using OpenZeppelin Contracts libraries. Use when users need to integrate an OpenZeppelin library component — token standards (ERC20, ERC721, ERC1155), access control (Ownable, AccessControl, AccessManager), security features (Pausable, ReentrancyGuard), governance (Governor, timelocks), or accounts (multisig, abstraction) — into existing or new contracts. Covers pattern discovery from library source, MCP generators, and library-first integration. Supports Solidity, Cairo, Stylus, and Stellar."
 ---
 
 # Develop Contracts with OpenZeppelin
@@ -9,11 +9,7 @@ description: "Develop smart contracts using OpenZeppelin Contracts libraries. Us
 
 ### Understand the Request Before Responding
 
-Before generating any code, determine what the user is actually asking for:
-
-- **Informational/conceptual questions** ("What are the components of an ERC-20?", "How does Ownable work?") — explain the concept concisely. Do not generate unsolicited contract code. Offer to scaffold an implementation if the user wants one.
-- **Implementation requests** ("Help me build an ERC-20", "Add pausability to my contract") — proceed with code generation following the workflow below.
-- **Adjacent topic questions** ("How do I call my ERC-20 from a Python script?", "How do I write tests for my contract?") — answer the question directly. Do not refuse because the specific question is not about the OpenZeppelin library itself. Offer to help with any OpenZeppelin-specific parts if relevant.
+For conceptual questions ("How does Ownable work?"), explain without generating code. For implementation requests, proceed with the workflow below.
 
 ### CRITICAL: Always Read the Project First
 
@@ -157,20 +153,6 @@ Browse these paths first when searching for a component.
 Do not assume override points from prior knowledge — always verify by reading the installed source. Functions that were `virtual` in an older version may no longer be in the current one, making them non-overridable. The source NatSpec will indicate the correct override point (e.g., `NOTE: This function is not virtual, {X} should be overridden instead`).
 
 A known example: the Solidity ERC-20 transfer hook changed between v4 and v5. Read the installed `ERC20.sol` to confirm which function is `virtual` before recommending an override.
-
-### When to Search the Web
-
-Use web search (`WebSearch`, `WebFetch`) only when:
-
-- The dependency source is not installed locally and the repository cannot be accessed
-  via `Bash` (e.g., `gh api` or `git clone`)
-- Documentation in the source is insufficient for an undocumented or newly added feature
-- The user's request involves third-party integrations beyond OpenZeppelin
-
-Effective search patterns:
-- `"OpenZeppelin" "{component name}" "{ecosystem}" example`
-- `"OpenZeppelin" "{component name}" integration guide`
-- `site:docs.openzeppelin.com {component name}`
 
 ## MCP Generators (Optional)
 
