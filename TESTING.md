@@ -8,7 +8,7 @@ You are testing an AI coding agent's behavior when the OpenZeppelin skills are a
 
 ### Simulation Protocol
 
-Run each test **one at a time, using a fresh subagent per test** (a new conversation with no prior context). This is essential: if the agent running the simulation already has the evaluation criteria in context, the simulation is invalid — it will draw on that knowledge to influence its behavior.
+Run each test **using a fresh subagent per test** (a new conversation with no prior context). This is essential: if the agent running the simulation already has the evaluation criteria in context, the simulation is invalid — it will draw on that knowledge to influence its behavior. Tests may be run in parallel.
 
 **Before running any tests**, create the output directory:
 
@@ -16,18 +16,18 @@ Run each test **one at a time, using a fresh subagent per test** (a new conversa
 .test-output/
 ```
 
-For each test, the subagent performs two phases. Keep them separate.
+Each test has two phases. Keep them separate — the subagent must not see the evaluation criteria.
 
 **Phase 1 — Simulate (subagent produces the response):**
 
-Send the subagent the following instructions along with the test prompt:
+Launch a subagent with the following instructions along with the test prompt:
 
 > You are simulating a coding agent with the OpenZeppelin skills active. The skills are defined in the `skills/` directory (relative to the repo root), each in their own folder with a `SKILL.md` file.
 >
 > 1. Read the `description` frontmatter of each skill to determine which skill(s) would trigger for this prompt. If no skill would trigger, produce a normal response with no OpenZeppelin context.
 > 2. If one or more skills trigger: read the SKILL.md body of the relevant skill(s). Do not pre-load all skills — load only what is relevant to the prompt.
 > 3. Produce the response you would give to the user. Do NOT self-evaluate — just produce the response.
-> 4. Write your response to `.test-output/test-[ID].md` using the Write tool, where `[ID]` is the test ID (e.g., `1.1`, `3.4`). Use this exact format:
+> 4. Output your response as your final message. Use this exact format:
 >
 > ```
 > === TEST [ID] RESPONSE ===
@@ -39,7 +39,7 @@ For tests with a **Setup** step, tell the subagent to treat the described files 
 
 **Phase 2 — Evaluate (you score the response):**
 
-Read the subagent's output from `test-output/test-[ID].md`, compare it against the **Expected** checklist for that test, and record:
+The subagent's response is returned to you via the Task tool result. Write it to `.test-output/test-[ID].md` so the human can review it, then compare it against the **Expected** checklist for that test and record:
 - **PASS** — all expected behaviors observed
 - **PARTIAL** — some expected behaviors missing
 - **FAIL** — incorrect behavior or critical expectation violated
