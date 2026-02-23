@@ -17,6 +17,8 @@ npx skills add OpenZeppelin/openzeppelin-skills
 /plugin install openzeppelin-skills
 ```
 
+**Note:** This method automatically installs optional MCP servers for smart contract generation. See [MCP Servers](#mcp-servers) below.
+
 ### Option 3: Manual
 
 Copy skill folders to your Claude skills directory:
@@ -29,15 +31,19 @@ cp -r skills/*-contracts ~/.claude/skills/
 
 | Skill | Purpose |
 |-------|---------|
+| [develop-contracts](skills/develop-contracts/) | Develop contracts using OpenZeppelin Contracts libraries |
 | [setup-solidity-contracts](skills/setup-solidity-contracts/) | Set up a Solidity project |
 | [setup-cairo-contracts](skills/setup-cairo-contracts/) | Set up a Cairo project |
 | [setup-stylus-contracts](skills/setup-stylus-contracts/) | Set up a Stylus project |
 | [setup-stellar-contracts](skills/setup-stellar-contracts/) | Set up a Stellar project |
-| [develop-contracts](skills/develop-contracts/) | Develop contracts using OpenZeppelin Contracts libraries |
 | [upgrade-solidity-contracts](skills/upgrade-solidity-contracts/) | Upgrade Solidity contracts |
 | [upgrade-cairo-contracts](skills/upgrade-cairo-contracts/) | Upgrade Cairo contracts |
 | [upgrade-stylus-contracts](skills/upgrade-stylus-contracts/) | Upgrade Stylus contracts |
 | [upgrade-stellar-contracts](skills/upgrade-stellar-contracts/) | Upgrade Stellar contracts |
+
+## MCP Servers
+
+Optional MCP servers provide smart contract generation tools. These are automatically installed with the Claude Code Plugin, or can be configured manually by following the steps at https://mcp.openzeppelin.com/
 
 ## License
 
