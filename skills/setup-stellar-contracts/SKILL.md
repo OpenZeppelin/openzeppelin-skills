@@ -85,6 +85,11 @@ impl MyToken {
 
 Trait implementations are separate `impl` blocks per trait (e.g., `FungibleToken`, `Pausable`). Guard macros like `#[when_not_paused]` and `#[only_owner]` decorate individual functions.
 
+## Platform Notes
+
+- **Read operations are free in Stellar.** Optimize for minimizing writes; reads and computation are cheap. Prefer clean, readable code over micro-optimizations.
+- **Instance storage TTL extension is the developer's responsibility.** The OpenZeppelin library handles TTL extension for other storage entries, but contracts must extend their own `instance` storage entries to prevent expiration.
+
 ## Build & Test
 
 Build the contract to WASM:
