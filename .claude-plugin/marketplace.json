@@ -4,7 +4,7 @@
     "name": "OpenZeppelin"
   },
   "metadata": {
-    "description": "Skills for smart contract development with OpenZeppelin Contracts libraries"
+    "description": "Skills for secure smart contract development with OpenZeppelin Contracts libraries"
   },
   "plugins": [
     {

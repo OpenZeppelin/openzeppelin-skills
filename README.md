@@ -1,6 +1,6 @@
 # OpenZeppelin Skills
 
-Agent skills for smart contract development with OpenZeppelin Contracts libraries.
+Agent skills for secure smart contract development with OpenZeppelin Contracts libraries.
 
 ## Installation
 

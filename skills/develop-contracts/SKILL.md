@@ -1,6 +1,6 @@
 ---
 name: develop-contracts
-description: "Develop smart contracts using OpenZeppelin Contracts libraries. Use when users need to integrate an OpenZeppelin library component — token standards (ERC20, ERC721, ERC1155), access control (Ownable, AccessControl, AccessManager), security features (Pausable, ReentrancyGuard), governance (Governor, timelocks), or accounts (multisig, abstraction) — into existing or new contracts. Covers pattern discovery from library source, MCP generators, and library-first integration. Supports Solidity, Cairo, Stylus, and Stellar."
+description: "Develop secure smart contracts using OpenZeppelin Contracts libraries. Use when users need to integrate an OpenZeppelin library component — token standards (ERC20, ERC721, ERC1155), access control (Ownable, AccessControl, AccessManager), security features (Pausable, ReentrancyGuard), governance (Governor, timelocks), or accounts (multisig, abstraction) — into existing or new contracts. Covers pattern discovery from library source, MCP generators, and library-first integration. Supports Solidity, Cairo, Stylus, and Stellar."
 ---
 
 # Develop Contracts with OpenZeppelin

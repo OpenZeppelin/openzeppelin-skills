@@ -1,7 +1,7 @@
 {
   "name": "openzeppelin-skills",
   "version": "0.0.1",
-  "description": "Skills for smart contract development with OpenZeppelin Contracts libraries",
+  "description": "Skills for secure smart contract development with OpenZeppelin Contracts libraries",
   "author": {
     "name": "OpenZeppelin",
     "url": "https://www.openzeppelin.com"
