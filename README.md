@@ -31,15 +31,15 @@ cp -r skills/*-contracts ~/.claude/skills/
 
 | Skill | Purpose |
 |-------|---------|
-| [develop-secure-contracts](skills/develop-secure-contracts/) | Develop secure smart contracts using OpenZeppelin Contracts libraries |
-| [setup-solidity-contracts](skills/setup-solidity-contracts/) | Set up a Solidity project |
-| [setup-cairo-contracts](skills/setup-cairo-contracts/) | Set up a Cairo project |
-| [setup-stylus-contracts](skills/setup-stylus-contracts/) | Set up a Stylus project |
-| [setup-stellar-contracts](skills/setup-stellar-contracts/) | Set up a Stellar project |
-| [upgrade-solidity-contracts](skills/upgrade-solidity-contracts/) | Upgrade Solidity contracts |
-| [upgrade-cairo-contracts](skills/upgrade-cairo-contracts/) | Upgrade Cairo contracts |
-| [upgrade-stylus-contracts](skills/upgrade-stylus-contracts/) | Upgrade Stylus contracts |
-| [upgrade-stellar-contracts](skills/upgrade-stellar-contracts/) | Upgrade Stellar contracts |
+| [develop-secure-contracts](skills/develop-secure-contracts/SKILL.md) | Develop secure smart contracts using OpenZeppelin Contracts libraries |
+| [setup-solidity-contracts](skills/setup-solidity-contracts/SKILL.md) | Set up a Solidity project |
+| [setup-cairo-contracts](skills/setup-cairo-contracts/SKILL.md) | Set up a Cairo project |
+| [setup-stylus-contracts](skills/setup-stylus-contracts/SKILL.md) | Set up a Stylus project |
+| [setup-stellar-contracts](skills/setup-stellar-contracts/SKILL.md) | Set up a Stellar project |
+| [upgrade-solidity-contracts](skills/upgrade-solidity-contracts/SKILL.md) | Upgrade Solidity contracts |
+| [upgrade-cairo-contracts](skills/upgrade-cairo-contracts/SKILL.md) | Upgrade Cairo contracts |
+| [upgrade-stylus-contracts](skills/upgrade-stylus-contracts/SKILL.md) | Upgrade Stylus contracts |
+| [upgrade-stellar-contracts](skills/upgrade-stellar-contracts/SKILL.md) | Upgrade Stellar contracts |
 
 ## MCP Servers
 
