@@ -9,7 +9,7 @@ The OpenZeppelin skills guide correct integration of OpenZeppelin Contracts libr
 The skills are organized by development lifecycle phase:
 
 - **Setup skills** (`setup-<language>-contracts`) — project scaffolding, dependency installation, and import conventions for each ecosystem
-- **Develop skill** (`develop-contracts`) — core development workflow, pattern discovery methodology, MCP generators, and library-first integration principles (generic across all ecosystems)
+- **Develop skill** (`develop-secure-contracts`) — core development workflow, pattern discovery methodology, MCP generators, and library-first integration principles (generic across all ecosystems)
 - **Upgrade skills** (`upgrade-<language>-contracts`) — proxy patterns, initializers, storage compatibility, and upgrade procedures for each ecosystem
 
 ## Core Principles
