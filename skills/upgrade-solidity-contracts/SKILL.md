@@ -12,6 +12,7 @@ description: "Upgrade Solidity smart contracts using OpenZeppelin proxy patterns
 - [Writing Upgradeable Contracts](#writing-upgradeable-contracts)
 - [Hardhat Upgrades Workflow](#hardhat-upgrades-workflow)
 - [Foundry Upgrades Workflow](#foundry-upgrades-workflow)
+- [Handling Upgrade Validation Issues](#handling-upgrade-validation-issues)
 - [Upgrade Safety Checklist](#upgrade-safety-checklist)
 
 ## Proxy Patterns Overview
@@ -204,6 +205,15 @@ Key differences from Hardhat:
 - Run `forge clean` or use `--force` before running scripts
 
 > Read the installed library's `Upgrades.sol` for the full API and `Options` struct.
+
+## Handling Upgrade Validation Issues
+
+When the plugins flag a warning or error, work through this hierarchy:
+
+1. **Fix the root cause.** Determine whether the code can be restructured to eliminate the concern entirely — remove the problematic pattern or refactor storage. This is always the right first step.
+2. **Use in-code annotations if the situation is genuinely safe.** If restructuring isn't appropriate and you've determined the flagged pattern is actually safe, the plugins support annotations that let you document that judgment directly at the source. Check the installed plugin's docs for what's available. These annotations create a clear audit trail of intentional exceptions — use them only after evaluating the safety, not as a shortcut.
+3. **Use a narrow flag if an annotation won't work.** Some cases (e.g., a third-party base contract you can't modify) can't be addressed in source. Use the most targeted flag available, scoped to the specific construct.
+4. **Broad bypass as a last resort, with full awareness of the risk.** Options like `UnsafeUpgrades` (Foundry) or blanket `unsafeAllow` entries skip all validation for the affected scope. If you use them, comment why, and verify manually — the plugin is no longer protecting you.
 
 ## Upgrade Safety Checklist
 
