@@ -112,6 +112,8 @@ From Step 2, construct the minimal set of changes needed:
 - **New functions** to add (required overrides, hooks, public API)
 - **Existing functions to modify** (add modifiers, call hooks, emit events)
 
+If the contract is upgradeable, any of the above may affect storage compatibility. Consult the relevant upgrade skill before applying.
+
 Do not include anything beyond what the dependency requires. This is the minimal diff
 between "contract without the feature" and "contract with the feature."
 
