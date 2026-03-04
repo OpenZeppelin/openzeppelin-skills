@@ -210,6 +210,20 @@ Apply these checks to every test unless noted otherwise:
 - Identifies integration requirements (component macro, substorage, embedded impls)
 - Applies minimal changes to the existing contract
 
+### 3.5 Upgrade-aware storage addition in base contract
+
+**Setup:** Two Solidity files: a base contract `BaseToken.sol` with a couple of state variables, and `MyToken.sol` that inherits from it and from `UUPSUpgradeable`, and also declares its own state variable. The project is already deployed.
+
+**Prompt:**
+> Add a `mapping(address => bool) private _whitelist` to BaseToken so I can use it in MyToken.
+
+**Expected:**
+- Reads both contract files before making changes
+- Recognizes that `BaseToken` is part of an upgradeable inheritance chain
+- Warns that inserting a new variable into a base contract can break storage layout for already-deployed proxies — new variables must be appended, not inserted before existing ones
+- Applies the change correctly (appended at the end of existing state, or added to a namespaced struct if one exists)
+- Does NOT silently insert the variable in an unsafe position
+
 ### 3.4 Conflict resolution — incompatible access control
 
 **Setup:** Create an ERC-20 Solidity contract that uses `AccessControl` with a `MINTER_ROLE` guarding `mint`.
@@ -364,6 +378,35 @@ Apply these checks to every test unless noted otherwise:
 - `upgrade-solidity-contracts` skill activates
 - Passes the deployer address (owner) as the second constructor argument to `TransparentUpgradeableProxy` — NOT a `ProxyAdmin` contract address
 - Does NOT instruct the user to deploy a `ProxyAdmin` separately and pass it in
+
+### 5.8 Upgrade validation hierarchy — plugin error
+
+**Prompt:**
+> Getting this error when upgrading my contract, how do I fix this?
+> ```
+> Error: New storage layout is incompatible
+>
+>   project/contracts/BoxV2.sol:9: Renamed `_value` to `_valueOld`
+> ```
+
+**Expected:**
+- `upgrade-solidity-contracts` skill activates
+- Does NOT jump straight to flags or `unsafeAllow` entries as the first suggestion
+- Teaches the hierarchy: first determine whether the code can be restructured to fix the root cause; if the rename is genuinely safe, use an in-code annotation to document that; only if an annotation won't work, use a narrow flag; broad bypass only as a dangerous last resort
+- Points to the installed plugin's docs for available annotations
+
+### 5.9 Namespace removal between upgrades
+
+**Prompt:**
+> In V2 of my upgradeable contract I want to remove ERC20PausableUpgradeable — we no longer need the pause functionality. Is that safe?
+
+**Expected:**
+- `upgrade-solidity-contracts` skill activates
+- Warns that removing the base contract drops its namespace, which the plugin flags as an error
+- Explains the risk: existing state stored in that namespace becomes inaccessible
+- Recommends keeping the old contract in the inheritance chain even if unused
+- Notes that an unused namespace adds no runtime cost or storage conflict
+- Mentions that `unsafeSkipStorageCheck` is the only bypass but is a dangerous last resort
 
 ### 5.7 Cross-major-version upgrade restriction (v4 → v5)
 

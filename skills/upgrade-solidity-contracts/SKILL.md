@@ -110,7 +110,7 @@ function _getBalance(address account) internal view returns (uint256) {
 
 Benefits over legacy storage gaps: safe to add variables to base contracts, inheritance order changes don't break layout, each contract's storage is fully isolated.
 
-When upgrading, never remove a namespace by dropping it from the inheritance chain. The plugin flags deleted namespaces as an error — removing one could silently lose access to stored state. If a namespace is no longer actively used, keep the old contract in the inheritance chain. An unused namespace adds no runtime cost and causes no storage conflict. There is no targeted flag to suppress this error; the only bypass is `unsafeSkipStorageCheck`, which disables all storage layout compatibility checks and is a dangerous last resort.
+When upgrading, never remove a namespace by dropping it from the inheritance chain. The plugin flags deleted namespaces as an error — the state stored in that namespace becomes orphaned: the data remains on-chain but the new implementation has no way to read or write it. If a namespace is no longer actively used, keep the old contract in the inheritance chain. An unused namespace adds no runtime cost and causes no storage conflict. There is no targeted flag to suppress this error; the only bypass is `unsafeSkipStorageCheck`, which disables all storage layout compatibility checks and is a dangerous last resort.
 
 #### Computing ERC-7201 storage locations
 
