@@ -205,7 +205,7 @@ Apply these checks to every test unless noted otherwise:
 > I have a Cairo contract using OwnableComponent. I want to also make it pausable. Show me how to integrate PausableComponent by reading the OpenZeppelin Cairo library source.
 
 **Expected:**
-- `develop-contracts` skill activates and follows the pattern discovery methodology
+- `develop-secure-contracts` skill activates and follows the pattern discovery methodology
 - Attempts to find the installed dependency or repository source
 - Identifies integration requirements (component macro, substorage, embedded impls)
 - Applies minimal changes to the existing contract
@@ -501,7 +501,7 @@ Apply these checks to every test unless noted otherwise:
 
 **Expected:**
 - Detects Cairo ecosystem from `Scarb.toml`
-- `setup-cairo-contracts` or `develop-contracts` skill activates
+- `setup-cairo-contracts` or `develop-secure-contracts` skill activates
 - Uses Cairo component model (not Solidity inheritance)
 
 ### 9.2 Upgrade model comparison
