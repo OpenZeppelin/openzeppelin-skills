@@ -1,6 +1,9 @@
 ---
 name: upgrade-stellar-contracts
 description: "Upgrade Stellar/Soroban smart contracts using OpenZeppelin's upgradeable module. Use when users need to: (1) make Soroban contracts upgradeable via native WASM replacement, (2) use Upgradeable or UpgradeableMigratable derive macros, (3) implement atomic upgrade-and-migrate patterns with an Upgrader contract, (4) ensure storage key compatibility across upgrades, or (5) test upgrade paths for Soroban contracts."
+license: AGPL-3.0-only
+metadata:
+  author: OpenZeppelin
 ---
 
 # Stellar Upgrades

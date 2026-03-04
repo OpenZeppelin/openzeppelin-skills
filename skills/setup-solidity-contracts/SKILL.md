@@ -1,6 +1,9 @@
 ---
 name: setup-solidity-contracts
 description: "Set up a Solidity smart contract project with OpenZeppelin Contracts. Use when users need to: (1) create a new Hardhat or Foundry project, (2) install OpenZeppelin Contracts dependencies for Solidity, (3) configure remappings for Foundry, or (4) understand Solidity import conventions for OpenZeppelin."
+license: AGPL-3.0-only
+metadata:
+  author: OpenZeppelin
 ---
 
 # Solidity Setup

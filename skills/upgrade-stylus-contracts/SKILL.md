@@ -1,6 +1,9 @@
 ---
 name: upgrade-stylus-contracts
 description: "Upgrade Stylus smart contracts using OpenZeppelin proxy patterns on Arbitrum. Use when users need to: (1) make Stylus Rust contracts upgradeable with UUPS or Beacon proxies, (2) understand Stylus-specific proxy mechanics (logic_flag, WASM reactivation), (3) integrate UUPSUpgradeable with access control, (4) ensure storage compatibility across upgrades, or (5) test upgrade paths for Stylus contracts."
+license: AGPL-3.0-only
+metadata:
+  author: OpenZeppelin
 ---
 
 # Stylus Upgrades

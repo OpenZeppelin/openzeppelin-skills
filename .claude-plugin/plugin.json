@@ -8,5 +8,5 @@
   },
   "homepage": "https://www.openzeppelin.com",
   "repository": "https://github.com/OpenZeppelin/openzeppelin-skills",
-  "license": "AGPL-3.0"
+  "license": "AGPL-3.0-only"
 }

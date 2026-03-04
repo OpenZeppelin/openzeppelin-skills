@@ -1,6 +1,9 @@
 ---
 name: upgrade-cairo-contracts
 description: "Upgrade Cairo smart contracts using OpenZeppelin's UpgradeableComponent on Starknet. Use when users need to: (1) make Cairo contracts upgradeable via replace_class_syscall, (2) integrate the OpenZeppelin UpgradeableComponent, (3) understand Starknet's class-based upgrade model vs EVM proxy patterns, (4) ensure storage compatibility across upgrades, (5) guard upgrade functions with access control, or (6) test upgrade paths for Cairo contracts."
+license: AGPL-3.0-only
+metadata:
+  author: OpenZeppelin
 ---
 
 # Cairo Upgrades

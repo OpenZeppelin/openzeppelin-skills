@@ -1,6 +1,9 @@
 ---
 name: setup-stellar-contracts
 description: "Set up a Stellar/Soroban smart contract project with OpenZeppelin Contracts for Stellar. Use when users need to: (1) install Stellar CLI and Rust toolchain for Soroban, (2) create a new Soroban project, (3) add OpenZeppelin Stellar dependencies to Cargo.toml, or (4) understand Soroban import conventions and contract patterns for OpenZeppelin."
+license: AGPL-3.0-only
+metadata:
+  author: OpenZeppelin
 ---
 
 # Stellar Setup
