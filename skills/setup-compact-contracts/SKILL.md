@@ -22,7 +22,6 @@ Follow Midnight's [Compact Developer Tools installation guide](https://docs.midn
 
 ```bash
 compact compile --version
-# Expected: Compactc version: 0.29.0
 ```
 
 ### Install Node.js
@@ -261,7 +260,7 @@ Ask the user whether they prefer named imports, prefixed imports, or a combinati
 
 ## Compact Language Basics
 
-- **Pragma**: `pragma language_version >= 0.21.0;`
+- **Pragma**: `pragma language_version >= X.Y.Z;` — specifies the minimum Compact language version. Check existing `.compact` files in the project or the OpenZeppelin library for the current version to use.
 - **Circuits**: Functions in Compact are called "circuits" (compiled to ZK circuits)
 - **Pure circuits**: `export pure circuit` — no side effects (no ledger access)
 - **Export**: `export circuit` makes a circuit callable from outside the contract
@@ -298,7 +297,7 @@ Ask the user whether they prefer named imports, prefixed imports, or a combinati
 | `@midnight-ntwrk/midnight-js-contracts` | Contract deployment and interaction |
 | `@midnight-ntwrk/midnight-js-types` | Type definitions |
 | `@midnight-ntwrk/zswap` | Zero-knowledge token swap library |
-| `@midnight-ntwrk/ledger-v7` | Ledger integration |
+| `@midnight-ntwrk/ledger-*` | Ledger integration (version suffix changes across releases, check `package.json` for the current one) |
 
 ## Testing
 
