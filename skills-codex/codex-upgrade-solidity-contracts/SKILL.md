@@ -1,6 +1,6 @@
 ---
 name: codex-upgrade-solidity-contracts
-description: Upgrade Solidity contracts with OpenZeppelin proxy patterns. Use when users need UUPS/Transparent/Beacon workflows, initializer migration, Hardhat or Foundry upgrades tooling, storage layout safety checks, and ERC-7201 namespaced storage guidance.
+description: Make Solidity contracts upgradeable and perform safe upgrades with OpenZeppelin proxy patterns. Trigger for prompts like "make this contract UUPS", "deploy/upgrade Transparent proxy", "upgrade V1 to V2", "is this storage change safe", "use Hardhat upgrades plugin", "use Foundry Upgrades", "migrate constructor to initializer", or "add ERC-7201 namespaced storage".
 ---
 
 # Solidity Upgrades (Codex Draft)

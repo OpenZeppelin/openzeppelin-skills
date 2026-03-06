@@ -1,6 +1,6 @@
 ---
 name: codex-upgrade-cairo-contracts
-description: Upgrade Starknet Cairo contracts using OpenZeppelin UpgradeableComponent. Use when users need class-hash replacement guidance, component integration steps, upgrade access control, and Cairo storage compatibility safety checks.
+description: Upgrade Starknet Cairo contracts with OpenZeppelin UpgradeableComponent and class-hash replacement. Trigger for prompts like "make my Cairo contract upgradeable", "use replace_class_syscall", "add UpgradeableComponent", "guard upgrade with Ownable/roles", or "is renaming Cairo storage safe".
 ---
 
 # Cairo Upgrades (Codex Draft)

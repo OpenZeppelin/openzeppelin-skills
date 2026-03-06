@@ -1,6 +1,6 @@
 ---
 name: codex-setup-cairo-contracts
-description: Set up Starknet Cairo projects with OpenZeppelin Contracts for Cairo. Use when users need Scarb project scaffolding, OpenZeppelin dependency configuration, package selection, and Cairo component import/integration conventions.
+description: Bootstrap Starknet Cairo projects with OpenZeppelin Contracts for Cairo. Trigger for prompts like "set up Cairo project", "start Starknet project with OpenZeppelin", "configure Scarb.toml dependencies", "choose umbrella vs individual OpenZeppelin Cairo packages", or "show Cairo component import patterns".
 ---
 
 # Cairo Setup (Codex Draft)

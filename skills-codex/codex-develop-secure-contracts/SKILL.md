@@ -1,6 +1,6 @@
 ---
 name: codex-develop-secure-contracts
-description: Develop secure smart contracts using OpenZeppelin libraries across Solidity, Cairo, Stylus, and Stellar. Use when users ask to add or modify OpenZeppelin features such as token standards, access control, security primitives, governance modules, account modules, or upgradeability integrations.
+description: Develop or modify contracts with OpenZeppelin components across Solidity, Cairo, Stylus, and Stellar. Trigger for prompts like "add pausability", "make mint owner-only", "add permit", "integrate AccessControl/Ownable", "secure this contract", "use OpenZeppelin", "add ERC20/ERC721/ERC1155 features", "add governor/timelock", or any request to integrate OpenZeppelin into existing smart contract code.
 ---
 
 # Develop Secure Contracts with OpenZeppelin (Codex Draft)

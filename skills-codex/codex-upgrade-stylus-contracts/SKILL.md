@@ -1,6 +1,6 @@
 ---
 name: codex-upgrade-stylus-contracts
-description: Upgrade Arbitrum Stylus contracts with OpenZeppelin proxy patterns. Use when users need Stylus UUPS/Beacon guidance, logic_flag context detection details, upgrade access control integration, and storage compatibility validation for Rust contracts.
+description: Upgrade Arbitrum Stylus contracts using OpenZeppelin UUPS or Beacon proxy patterns. Trigger for prompts like "make this Stylus contract upgradeable", "set up UUPS in Stylus", "how does logic_flag work", "upgrade Stylus proxy V1 to V2", "protect upgrade_to_and_call", or "check Stylus storage compatibility".
 ---
 
 # Stylus Upgrades (Codex Draft)

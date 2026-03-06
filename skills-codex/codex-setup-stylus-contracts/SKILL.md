@@ -1,6 +1,6 @@
 ---
 name: codex-setup-stylus-contracts
-description: Set up Arbitrum Stylus Rust projects with OpenZeppelin Contracts for Stylus. Use when users need Rust/WASM toolchain setup, Cargo Stylus project scaffolding, dependency pinning, and Stylus import/storage conventions.
+description: Bootstrap Arbitrum Stylus Rust projects with OpenZeppelin Contracts for Stylus. Trigger for prompts like "set up Stylus project", "install cargo stylus", "configure Rust WASM target for Stylus", "add openzeppelin-stylus crate", "enable export-abi", or "show Stylus storage/import conventions".
 ---
 
 # Stylus Setup (Codex Draft)

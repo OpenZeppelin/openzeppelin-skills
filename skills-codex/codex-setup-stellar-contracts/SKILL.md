@@ -1,6 +1,6 @@
 ---
 name: codex-setup-stellar-contracts
-description: Set up Stellar Soroban Rust projects with OpenZeppelin Stellar contracts. Use when users need toolchain setup, workspace scaffolding, OpenZeppelin crate pinning, and Soroban import/pattern guidance.
+description: Bootstrap Stellar Soroban Rust projects with OpenZeppelin Stellar contracts. Trigger for prompts like "set up Soroban project", "install Stellar CLI + Rust target", "add OpenZeppelin Stellar crates", "configure workspace.dependencies", or "show Soroban contract import/trait patterns".
 ---
 
 # Stellar Setup (Codex Draft)

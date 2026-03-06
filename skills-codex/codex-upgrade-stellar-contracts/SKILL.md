@@ -1,6 +1,6 @@
 ---
 name: codex-upgrade-stellar-contracts
-description: Upgrade Stellar Soroban contracts with OpenZeppelin upgradeable modules. Use when users need native WASM replacement guidance, Upgradeable vs UpgradeableMigratable design choices, atomic upgrade-and-migrate flow, and storage key compatibility rules.
+description: Upgrade Stellar Soroban contracts with OpenZeppelin Upgradeable or UpgradeableMigratable modules. Trigger for prompts like "make my Soroban contract upgradeable", "upgrade and migrate Soroban state atomically", "use Upgradeable derive macro", "implement _require_auth for upgrades", or "is changing storage key/type safe in Soroban".
 ---
 
 # Stellar Upgrades (Codex Draft)

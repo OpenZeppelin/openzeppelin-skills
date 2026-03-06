@@ -1,6 +1,6 @@
 ---
 name: codex-setup-solidity-contracts
-description: Set up Solidity projects with OpenZeppelin Contracts. Use when users need Hardhat or Foundry initialization, dependency installation, remappings configuration, or import convention guidance for standard and upgradeable OpenZeppelin Solidity packages.
+description: Bootstrap and configure Solidity projects with OpenZeppelin Contracts in Hardhat or Foundry. Trigger for prompts like "set up Foundry with OpenZeppelin", "initialize Hardhat + OZ", "add @openzeppelin/contracts", "add contracts-upgradeable", "configure remappings.txt", "what import path should I use", or "install OpenZeppelin in this Solidity repo".
 ---
 
 # Solidity Setup (Codex Draft)
