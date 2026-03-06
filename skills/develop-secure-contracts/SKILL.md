@@ -1,6 +1,6 @@
 ---
 name: develop-secure-contracts
-description: "Develop secure smart contracts using OpenZeppelin Contracts libraries. Use when users need to integrate OpenZeppelin library components — including token standards (ERC20, ERC721, ERC1155), access control (Ownable, AccessControl, AccessManager), security primitives (Pausable, ReentrancyGuard), governance (Governor, timelocks), or accounts (multisig, account abstraction) — into existing or new contracts. Covers pattern discovery from library source, MCP generators, and library-first integration. Supports Solidity, Cairo, Stylus, and Stellar."
+description: "Develop secure smart contracts using OpenZeppelin Contracts libraries. Use when users need to integrate OpenZeppelin library components — including token standards (ERC20, ERC721, ERC1155, FungibleToken), access control (Ownable, AccessControl, AccessManager), security primitives (Pausable, ReentrancyGuard, Initializable), governance (Governor, timelocks), or accounts (multisig, account abstraction) — into existing or new contracts. Covers pattern discovery from library source, MCP generators, and library-first integration. Supports Solidity, Cairo, Stylus, Stellar, and Compact (Midnight Network)."
 license: AGPL-3.0-only
 metadata:
   author: OpenZeppelin
@@ -18,7 +18,7 @@ For conceptual questions ("How does Ownable work?"), explain without generating 
 
 Before generating code or suggesting changes:
 
-1. **Search the user's project** for existing contracts (`Glob` for `**/*.sol`, `**/*.cairo`, `**/*.rs`, etc.)
+1. **Search the user's project** for existing contracts (`Glob` for `**/*.sol`, `**/*.cairo`, `**/*.rs`, `**/*.compact`, etc.)
 2. **Read the relevant contract files** to understand what already exists
 3. **Default to integration, not replacement** — when users say "add pausability" or "make it upgradeable", they mean modify their existing code, not generate something new. Only replace if explicitly requested ("start fresh", "replace this").
 
@@ -137,6 +137,7 @@ between "contract without the feature" and "contract with the feature."
 | Cairo | [cairo-contracts](https://github.com/OpenZeppelin/cairo-contracts) | [docs.openzeppelin.com/contracts-cairo](https://docs.openzeppelin.com/contracts-cairo) | `.cairo` | Scarb cache (resolve from `Scarb.toml`) |
 | Stylus | [rust-contracts-stylus](https://github.com/OpenZeppelin/rust-contracts-stylus) | [docs.openzeppelin.com/contracts-stylus](https://docs.openzeppelin.com/contracts-stylus) | `.rs` | Cargo cache (`~/.cargo/registry/src/`) |
 | Stellar | [stellar-contracts](https://github.com/OpenZeppelin/stellar-contracts) ([Architecture](https://github.com/OpenZeppelin/stellar-contracts/blob/main/Architecture.md)) | [docs.openzeppelin.com/stellar-contracts](https://docs.openzeppelin.com/stellar-contracts) | `.rs` | Cargo cache (`~/.cargo/registry/src/`) |
+| Compact | [compact-contracts](https://github.com/OpenZeppelin/compact-contracts) | [docs.openzeppelin.com/contracts-compact](https://docs.openzeppelin.com/contracts-compact) | `.compact` | Git submodule `compact-contracts/` → `node_modules/@openzeppelin/compact-contracts/` |
 
 ### Directory Structure Conventions
 
@@ -149,7 +150,36 @@ Where to find components within each repository:
 | Governance | `contracts/governance/` | `packages/governance/` | — | `packages/governance/` |
 | Proxies / Upgrades | `contracts/proxy/` | `packages/upgrades/` | `contracts/src/proxy/` | `packages/contract-utils/` |
 | Utilities / Security | `contracts/utils/` | `packages/utils/`, `packages/security/` | `contracts/src/utils/` | `packages/contract-utils/` |
-| Accounts | `contracts/account/` | `packages/account/` | — | `packages/accounts/` |
+| Accounts | `contracts/account/` | `packages/account/` | — | `packages/accounts/` | — |
+
+### Compact Directory Structure
+
+Compact contracts use a flat module structure:
+
+| Category | Modules | Path |
+|----------|---------|------|
+| Access Control | `Ownable`, `AccessControl`, `ZOwnablePK` | `src/access/` |
+| Security | `Pausable`, `Initializable` | `src/security/` |
+| Tokens | `FungibleToken`, `NonFungibleToken`, `MultiToken` | `src/token/` |
+| Utilities | `Utils` | `src/utils/` |
+
+Compact supports named imports (similar to TypeScript/ES modules) and an optional `prefix` keyword:
+
+```typescript
+// Named imports (import specific identifiers)
+import { initialize, assertOnlyOwner } from "./path/to/Ownable";
+
+// Named imports with prefix (namespaces to avoid collisions)
+import { initialize, assertOnlyOwner } from "./path/to/Ownable" prefix Ownable_;
+
+// Wildcard import with prefix
+import "./path/to/Ownable" prefix Ownable_;
+
+// Wildcard import without prefix
+import "./path/to/Ownable";
+```
+
+When using a prefix, internal (underscore-prefixed) circuits like `_mint` become double-underscored: `FungibleToken__mint(...)`.
 
 Browse these paths first when searching for a component.
 
