@@ -29,6 +29,20 @@ Create a new Stylus project:
 cargo stylus new my_project
 ```
 
+Compilation check:
+
+```bash
+cargo check --target wasm32-unknown-unknown
+```
+
+Build:
+
+```bash
+cargo build --release --target wasm32-unknown-unknown \
+  -Z build-std=std,panic_abort \
+  -Z build-std-features=panic_immediate_abort
+```
+
 > A Rust nightly toolchain is required. The project should include a `rust-toolchain.toml` specifying the nightly channel, `rust-src` component, and `wasm32-unknown-unknown` target. Check the [rust-contracts-stylus repo](https://github.com/OpenZeppelin/rust-contracts-stylus) for the current recommended nightly date.
 
 ## Adding OpenZeppelin Dependencies
