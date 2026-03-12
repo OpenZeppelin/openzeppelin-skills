@@ -29,19 +29,7 @@ Create a new Stylus project:
 cargo stylus new my_project
 ```
 
-Compilation check:
-
-```bash
-cargo check --target wasm32-unknown-unknown
-```
-
-Build:
-
-```bash
-cargo build --release --target wasm32-unknown-unknown \
-  -Z build-std=std,panic_abort \
-  -Z build-std-features=panic_immediate_abort
-```
+After creating the project, verify it compiles with `cargo stylus check` (see Build & Deploy section below).
 
 > A Rust nightly toolchain is required. The project should include a `rust-toolchain.toml` specifying the nightly channel, `rust-src` component, and `wasm32-unknown-unknown` target. Check the [rust-contracts-stylus repo](https://github.com/OpenZeppelin/rust-contracts-stylus) for the current recommended nightly date.
 
@@ -107,6 +95,8 @@ impl IErc20 for MyToken {
 Top-level modules: `access`, `finance`, `proxy`, `token`, `utils`.
 
 ## Build & Deploy Basics
+
+> Do NOT use plain `cargo check` or `cargo build`, since Stylus contracts require the `cargo stylus` CLI for correct WASM compilation.
 
 Validate the contract compiles to valid Stylus WASM:
 
