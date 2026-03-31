@@ -14,8 +14,13 @@ npx skills add OpenZeppelin/openzeppelin-skills
 
 ```bash
 /plugin marketplace add OpenZeppelin/openzeppelin-skills
-/plugin install openzeppelin-skills
+/plugin install openzeppelin-solidity
+/plugin install openzeppelin-cairo
+/plugin install openzeppelin-stylus
+/plugin install openzeppelin-stellar
 ```
+
+The first command adds the marketplace source, and the remaining commands install individual plugins. Install whichever plugins are relevant to your project.
 
 **Note:** This method automatically installs optional MCP servers for smart contract generation. See [MCP Servers](#mcp-servers) below.
 

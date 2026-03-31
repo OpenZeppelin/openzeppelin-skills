@@ -8,8 +8,80 @@
   },
   "plugins": [
     {
-      "name": "openzeppelin-skills",
-      "source": "./"
+      "name": "openzeppelin-solidity",
+      "description": "Develop, set up, and upgrade secure Solidity smart contracts",
+      "version": "0.0.2",
+      "author": {
+        "name": "OpenZeppelin",
+        "url": "https://www.openzeppelin.com"
+      },
+      "homepage": "https://www.openzeppelin.com",
+      "repository": "https://github.com/OpenZeppelin/openzeppelin-skills",
+      "license": "AGPL-3.0-only",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/develop-secure-contracts",
+        "./skills/setup-solidity-contracts",
+        "./skills/upgrade-solidity-contracts"
+      ]
+    },
+    {
+      "name": "openzeppelin-cairo",
+      "description": "Develop, set up, and upgrade secure Cairo smart contracts",
+      "version": "0.0.2",
+      "author": {
+        "name": "OpenZeppelin",
+        "url": "https://www.openzeppelin.com"
+      },
+      "homepage": "https://www.openzeppelin.com",
+      "repository": "https://github.com/OpenZeppelin/openzeppelin-skills",
+      "license": "AGPL-3.0-only",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/develop-secure-contracts",
+        "./skills/setup-cairo-contracts",
+        "./skills/upgrade-cairo-contracts"
+      ]
+    },
+    {
+      "name": "openzeppelin-stylus",
+      "description": "Develop, set up, and upgrade secure Stylus smart contracts",
+      "version": "0.0.2",
+      "author": {
+        "name": "OpenZeppelin",
+        "url": "https://www.openzeppelin.com"
+      },
+      "homepage": "https://www.openzeppelin.com",
+      "repository": "https://github.com/OpenZeppelin/openzeppelin-skills",
+      "license": "AGPL-3.0-only",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/develop-secure-contracts",
+        "./skills/setup-stylus-contracts",
+        "./skills/upgrade-stylus-contracts"
+      ]
+    },
+    {
+      "name": "openzeppelin-stellar",
+      "description": "Develop, set up, and upgrade secure Stellar smart contracts",
+      "version": "0.0.2",
+      "author": {
+        "name": "OpenZeppelin",
+        "url": "https://www.openzeppelin.com"
+      },
+      "homepage": "https://www.openzeppelin.com",
+      "repository": "https://github.com/OpenZeppelin/openzeppelin-skills",
+      "license": "AGPL-3.0-only",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/develop-secure-contracts",
+        "./skills/setup-stellar-contracts",
+        "./skills/upgrade-stellar-contracts"
+      ]
     }
   ]
 }
