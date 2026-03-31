@@ -239,71 +239,71 @@ Apply these checks to every test unless noted otherwise:
 
 ---
 
-## 4. MCP Generators
+## 4. CLI Contract Generators
 
 ### 4.1 Generate-compare-apply workflow
 
 **Setup:** Create an ERC-20 Solidity contract file without permit support.
 
 **Prompt:**
-> I want to add permit (gasless approvals) to my ERC-20. Use the MCP generator to discover what changes are needed, then apply them to my contract.
+> I want to add permit (gasless approvals) to my ERC-20. Use the contracts CLI to discover what changes are needed, then apply them to my contract.
 
 **Expected:**
-- Calls the Solidity MCP generator twice (baseline without permit, then with permit enabled)
-- Compares the two outputs to identify the diff
+- Runs `npx @openzeppelin/contracts-cli solidity-erc20` twice, piping output to temp files (baseline without permit, then with `--permit`)
+- Diffs the two files to identify what changed
 - Applies only the discovered changes to the user's contract
 - Does NOT replace the entire contract with generated output
 
-### 4.2 MCP generator for new contract
+### 4.2 CLI generator for new contract
 
 **Prompt:**
 > Generate a Stellar fungible token called "MyToken" with symbol "MTK" that is mintable, burnable, and pausable with ownable access control.
 
 **Expected:**
-- Calls the Stellar MCP generator with the specified parameters
+- Runs `npx @openzeppelin/contracts-cli stellar-fungible` with the specified flags
 - Returns generated contract code
-- Uses `ownable` access, `mintable`, `burnable`, `pausable` flags
+- Uses `--access ownable`, `--mintable`, `--burnable`, `--pausable` flags
 
-### 4.3 MCP generator — Cairo ERC-721
+### 4.3 CLI generator — Cairo ERC-721
 
 **Prompt:**
 > Generate a Cairo ERC-721 NFT contract called "MyNFT" with symbol "MNFT" that is mintable with role-based access control.
 
 **Expected:**
-- Calls the Cairo ERC-721 MCP generator
-- Uses `roles` access control, `mintable` enabled
+- Runs `npx @openzeppelin/contracts-cli cairo-erc721` with appropriate flags
+- Uses `--access roles`, `--mintable`
 - Returns valid Cairo contract code
 
-### 4.4 MCP generator — Stylus ERC-20
+### 4.4 CLI generator — Stylus ERC-20
 
 **Prompt:**
 > Generate a Stylus ERC-20 token called "MyToken" that supports permit and is burnable.
 
 **Expected:**
-- Calls the Stylus ERC-20 MCP generator
-- Enables `permit` and `burnable`
+- Runs `npx @openzeppelin/contracts-cli stylus-erc20` with appropriate flags
+- Uses `--permit` and `--burnable`
 - Returns valid Rust contract code
 
-### 4.5 Fallback when no MCP tool exists
+### 4.5 Fallback when no CLI command exists
 
 **Prompt:**
 > Help me implement a Stellar multisig smart account using OpenZeppelin Stellar Contracts.
 
 **Expected:**
-- Recognizes there may not be an MCP generator for this specific contract type
+- Recognizes there may not be a CLI command for this specific contract type (checks `--help`)
 - Falls back to pattern discovery methodology (reading library source or repository)
 - Does NOT claim the feature doesn't exist just because there's no generator
 
-### 4.6 Fallback when MCP tool exists but feature is not covered
+### 4.6 Fallback when CLI command exists but feature is not covered
 
 **Prompt:**
-> I want to add a transfer fee to my ERC-20 — every transfer should send 1% to a treasury address. Use the MCP generator to help, then fill in whatever it can't cover.
+> I want to add a transfer fee to my ERC-20 — every transfer should send 1% to a treasury address. Use the contracts CLI to help, then fill in whatever it can't cover.
 
 **Expected:**
-- Inspects the MCP generator schema and recognizes there is no `transferFee` parameter (schema inspection is sufficient — calling the generator is not required when the feature is clearly absent from the parameter list)
+- Checks the CLI command's `--help` output and recognizes there is no `--transferFee` flag (help inspection is sufficient — running the command is not required when the feature is clearly absent from the flag list)
 - Falls back to pattern discovery: searches the installed library source for a hook or extension point (e.g., `_update` override in v5)
-- Does NOT stop after noting the generator can't handle it — applies the discovered pattern directly
-- Does NOT refuse or produce an incomplete response just because the generator lacks the feature
+- Does NOT stop after noting the CLI can't handle it — applies the discovered pattern directly
+- Does NOT refuse or produce an incomplete response just because the CLI lacks the feature
 
 ---
 

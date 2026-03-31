@@ -1,6 +1,6 @@
 ---
 name: develop-secure-contracts
-description: "Develop secure smart contracts using OpenZeppelin Contracts libraries. Use when users need to integrate OpenZeppelin library components — including token standards (ERC20, ERC721, ERC1155), access control (Ownable, AccessControl, AccessManager), security primitives (Pausable, ReentrancyGuard), governance (Governor, timelocks), or accounts (multisig, account abstraction) — into existing or new contracts. Covers pattern discovery from library source, MCP generators, and library-first integration. Supports Solidity, Cairo, Stylus, and Stellar."
+description: "Develop secure smart contracts using OpenZeppelin Contracts libraries. Use when users need to integrate OpenZeppelin library components — including token standards (ERC20, ERC721, ERC1155), access control (Ownable, AccessControl, AccessManager), security primitives (Pausable, ReentrancyGuard), governance (Governor, timelocks), or accounts (multisig, account abstraction) — into existing or new contracts. Covers pattern discovery from library source, CLI contract generators, and library-first integration. Supports Solidity, Cairo, Stylus, and Stellar."
 license: AGPL-3.0-only
 metadata:
   author: OpenZeppelin
@@ -48,14 +48,14 @@ The primary workflow is **pattern discovery from library source code**:
 
 See [Pattern Discovery and Integration](#pattern-discovery-and-integration) below for the full step-by-step procedure.
 
-### MCP Generators as an Optional Shortcut
+### CLI Generators as Reference
 
-If MCP generator tools are available at runtime, use them to accelerate pattern discovery:
-generate a baseline, generate with a feature enabled, compare the diff, and apply the changes to the user's code. This replaces the manual source-reading step but follows the same principle — discover patterns, then integrate them.
+Use `npx @openzeppelin/contracts-cli` to generate reference implementations for pattern discovery:
+generate a baseline to a file, generate with a feature enabled to another file, diff them, and apply the changes to the user's code. The CLI output is the canonical correct integration — use it as the source of truth for what imports, inheritance, storage, and overrides a feature requires.
 
-See [MCP Generators (Optional)](#mcp-generators-optional) for details on checking availability and using the generate-compare-apply shortcut.
+See [CLI Generators](#cli-generators) for details on the generate-compare-apply workflow.
 
-If no MCP tool exists for what's needed, use the generic pattern discovery methodology from [Pattern Discovery and Integration](#pattern-discovery-and-integration). The absence of an MCP tool does not mean the library lacks support — it only means there is no generator.
+If no CLI command exists for what's needed, use the generic pattern discovery methodology from [Pattern Discovery and Integration](#pattern-discovery-and-integration). The absence of a CLI command does not mean the library lacks support — it only means there is no generator.
 
 ## Pattern Discovery and Integration
 
@@ -159,29 +159,36 @@ Do not assume override points from prior knowledge — always verify by reading 
 
 A known example: the Solidity ERC-20 transfer hook changed between v4 and v5. Read the installed `ERC20.sol` to confirm which function is `virtual` before recommending an override.
 
-## MCP Generators (Optional)
+## CLI Generators
 
-MCP generators are template/scaffolding tools that produce OpenZeppelin contract boilerplate. They are **not required** — they accelerate pattern discovery when available.
+The `@openzeppelin/contracts-cli` package generates reference OpenZeppelin contract implementations from the command line. Use it as the reference source in the generate-compare-apply workflow whenever a command exists for the contract type.
 
-### Checking Availability
+### Discovering Commands and Options
 
-Discover MCP tools dynamically at runtime. Look for tools with names matching patterns like `solidity-erc20`, `cairo-erc721`, `stellar-fungible`, etc. Server names follow patterns like `OpenZeppelinSolidityContracts`, `OpenZeppelinCairoContracts`, or `OpenZeppelinContracts`.
-
-MCP tool schemas are self-describing. To learn what a generator supports, inspect its parameter list — each boolean parameter (e.g., `pausable`, `mintable`, `upgradeable`) corresponds to a feature toggle. Do not rely on prior knowledge of what parameters exist; read the schema each time, since tools are updated independently of this skill.
+Run `npx @openzeppelin/contracts-cli --help` to list available commands. Each command corresponds to a contract type (e.g., `solidity-erc20`, `cairo-erc721`, `stellar-fungible`). Run `npx @openzeppelin/contracts-cli <command> --help` to see the available options. Do not rely on prior knowledge of what options exist; check `--help` at the start of a conversation since the CLI may have been updated.
 
 ### Generate-Compare-Apply Shortcut
 
-When an MCP generator exists for the contract type:
+When a CLI command exists for the contract type, pipe generated output to temporary files and diff them to keep generated contract code out of the conversation context:
 
-1. **Generate baseline** — call with only required parameters, all features disabled
-2. **Generate with feature** — call again with one feature enabled
-3. **Compare** — diff baseline vs. variant to identify exactly what changed (imports, inheritance, state, constructor, functions, modifiers)
+1. **Generate baseline** — run with only required options, all features disabled, pipe to a file:
+   ```bash
+   npx @openzeppelin/contracts-cli solidity-erc20 --name MyToken --symbol MTK > /tmp/oz-baseline.sol
+   ```
+2. **Generate with feature** — run again with the feature enabled, pipe to a second file:
+   ```bash
+   npx @openzeppelin/contracts-cli solidity-erc20 --name MyToken --symbol MTK --pausable > /tmp/oz-variant.sol
+   ```
+3. **Compare** — diff the two files to identify exactly what changed (imports, inheritance, state, constructor, functions, modifiers):
+   ```bash
+   diff /tmp/oz-baseline.sol /tmp/oz-variant.sol
+   ```
 4. **Apply** — edit the user's existing contract to add the discovered changes
 
 For interacting features (e.g., access control + upgradeability), generate a combined variant as well.
 
-### When No MCP Tool Exists or a Feature Is Not Covered
+### When No CLI Command Exists or a Feature Is Not Covered
 
-The absence of an MCP tool does NOT mean the library lacks support. It only means there is no generator for that contract type. Always fall back to the generic pattern discovery methodology in [Pattern Discovery and Integration](#pattern-discovery-and-integration).
+The absence of a CLI command does NOT mean the library lacks support. It only means there is no generator for that contract type. Always fall back to the generic pattern discovery methodology in [Pattern Discovery and Integration](#pattern-discovery-and-integration).
 
-Similarly, when an MCP tool exists but does not expose a parameter for a specific feature, do not stop there. Fall back to pattern discovery for that feature: read the installed library source to find the relevant component, extract the integration requirements, and apply them to the user's contract.
+Similarly, when a CLI command exists but does not expose an option for a specific feature, do not stop there. Fall back to pattern discovery for that feature: read the installed library source to find the relevant component, extract the integration requirements, and apply them to the user's contract.
