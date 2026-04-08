@@ -243,13 +243,13 @@ Apply these checks to every test unless noted otherwise:
 
 ### 4.1 Generate-compare-apply workflow
 
-**Setup:** Create an ERC-20 Solidity contract file without permit support.
+**Setup:** Create an ERC-20 Solidity contract file without pause support.
 
 **Prompt:**
-> I want to add permit (gasless approvals) to my ERC-20. Use the contracts CLI to discover what changes are needed, then apply them to my contract.
+> I want to add pausability to my ERC-20. Use the contracts CLI to discover what changes are needed, then apply them to my contract.
 
 **Expected:**
-- Runs `npx @openzeppelin/contracts-cli solidity-erc20` twice, piping output to temp files (baseline without permit, then with `--permit`)
+- Runs `npx @openzeppelin/contracts-cli solidity-erc20` twice, piping output to temp files (baseline, then with `--pausable`)
 - Diffs the two files to identify what changed
 - Applies only the discovered changes to the user's contract
 - Does NOT replace the entire contract with generated output
