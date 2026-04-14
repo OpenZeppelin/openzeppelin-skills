@@ -9,7 +9,7 @@ The OpenZeppelin skills guide correct integration of OpenZeppelin Contracts libr
 The skills are organized by development lifecycle phase:
 
 - **Setup skills** (`setup-<language>-contracts`) — project scaffolding, dependency installation, and import conventions for each ecosystem
-- **Develop skill** (`develop-secure-contracts`) — core development workflow, pattern discovery methodology, MCP generators, and library-first integration principles (generic across all ecosystems)
+- **Develop skill** (`develop-secure-contracts`) — core development workflow, pattern discovery methodology, CLI contract generators, and library-first integration principles (generic across all ecosystems)
 - **Upgrade skills** (`upgrade-<language>-contracts`) — proxy patterns, initializers, storage compatibility, and upgrade procedures for each ecosystem
 
 ## Core Principles
@@ -28,9 +28,9 @@ The primary methodology is **pattern discovery from the installed dependency sou
 
 The output of discovery is a **minimal diff**: the exact imports, inheritance/composition, storage, initializer, and override changes needed.
 
-## MCP Generators
+## CLI Contract Generators
 
-When MCP contract generators are available, they serve as an optional shortcut for discovery. The generate-compare-apply approach (baseline → feature variant → diff → apply) replaces the manual source-reading step but follows the same integration discipline. Generator schemas are inspected at runtime; no prior knowledge of available tools or parameters is assumed.
+When `@openzeppelin/contracts-cli` is available, it serves as an optional shortcut for discovery. The generate-compare-apply approach (generate baseline to file → generate feature variant to file → diff → apply) replaces the manual source-reading step but follows the same integration discipline. Available commands and flags are discovered via `--help` at runtime; no prior knowledge of available options is assumed.
 
 ## Scope
 

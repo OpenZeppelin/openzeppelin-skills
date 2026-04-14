@@ -82,4 +82,4 @@ Before upgrading a production contract:
 - [ ] **Confirm access control** — only authorized callers can invoke `upgrade`
 - [ ] **Check API compatibility** — changed external function signatures break existing callers and integrations
 - [ ] **Review storage changes** — ensure no renames, removals, or type changes to existing variables
-- [ ] **Manual review** — there is no automated storage layout validation for Cairo; use the MCP contract generators to discover current integration patterns and rely on devnet testing
+- [ ] **Manual review** — there is no automated storage layout validation for Cairo; use `npx @openzeppelin/contracts-cli` to discover current integration patterns and rely on devnet testing
