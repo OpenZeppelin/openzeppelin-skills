@@ -43,10 +43,10 @@ OpenZeppelin packages are published to the **Move Registry (MVR)** and added to 
 Do **not** rely on a memorized package list — it drifts as the library evolves. Discover what is available from the library's own metadata, which is the single source of truth:
 
 1. Start — as always — at the AI discovery entry point, [`llms.txt`](https://raw.githubusercontent.com/OpenZeppelin/contracts-sui/main/llms.txt).
-2. Follow it to the package catalogs — [`contracts/README.md`](https://raw.githubusercontent.com/OpenZeppelin/contracts-sui/main/contracts/README.md) and [`math/README.md`](https://raw.githubusercontent.com/OpenZeppelin/contracts-sui/main/math/README.md). Each catalog table lists the MVR slug, the Move package name, docs, and highlights.
+2. Follow its links to **every package catalog it lists** — `llms.txt` is the authority on which catalogs exist, so read the set from there rather than assuming a fixed one (new top-level catalogs get added over time). Each catalog table lists the MVR slug, the Move package name, docs, and highlights.
 3. Read the individual package's `README.md` for the exact `r.mvr` install snippet and its module list. Confirm the slug resolves — either by looking it up on [moveregistry.com](https://www.moveregistry.com) or, definitively, by running the build (below), which resolves every slug against the MVR.
 
-> **Catalog paths are relative to the catalog file's own directory**, so a package's raw README is always `.../main/<catalog-dir>/<Path>/README.md` where `<catalog-dir>` is `contracts` (for `contracts/README.md`) or `math` (for `math/README.md`). The bare `.../main/<Path>/README.md` is a 404. Examples: `access/` → `contracts/access/README.md`, `utils/` → `contracts/utils/README.md`, `core/` → `math/core/README.md`, `fixed_point/` → `math/fixed_point/README.md`. When in doubt, list the tree: `gh api repos/OpenZeppelin/contracts-sui/git/trees/main?recursive=1`.
+> **Catalog paths are relative to the catalog file's own directory.** A catalog at `<catalog-dir>/README.md` lists each package by a `Path` relative to `<catalog-dir>/`, so the package's raw README is `.../main/<catalog-dir>/<Path>/README.md` — resolve `<Path>` against the directory of the catalog that links it, not the repo root (the bare `.../main/<Path>/README.md` 404s). When in doubt, list the tree: `gh api repos/OpenZeppelin/contracts-sui/git/trees/main?recursive=1`.
 
 > The Move package name (used in `use` statements) differs from the MVR slug — slug `@openzeppelin-move/integer-math` is Move package `openzeppelin_math`. Only add the packages the project actually uses.
 
@@ -67,8 +67,6 @@ Resolve it by adding `override = true` to the directly-declared dependency, whic
 openzeppelin_math = { r.mvr = "@openzeppelin-move/integer-math", override = true }
 openzeppelin_fp_math = { r.mvr = "@openzeppelin-move/fixed-point-math" }
 ```
-
-> An overridden package may materialize in the build cache under a numeric-suffixed directory (e.g. `build/**/openzeppelin_math_1/`). If you grep the installed source to discover APIs, match the suffixed name too.
 
 ## Study the Examples and Docs Before Implementing
 
