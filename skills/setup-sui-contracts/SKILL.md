@@ -73,7 +73,7 @@ openzeppelin_fp_math = { r.mvr = "@openzeppelin-move/fixed-point-math" }
 Do this before writing any integration code — most users don't know the full catalog, and it grows over time, so let the library show you what it provides and how it's meant to be composed. For each package you plan to use:
 
 1. **Study its `examples/`.** Every package ships compilable, CI-tested integration examples — these are the canonical composition recipes and the fastest way to see the real usage pattern (initialization, capability/witness flow, object ownership, tests). Prefer copying and adapting an example into `sources/` over writing from scratch.
-2. **Read the docs.** Start at the [documentation site](https://docs.openzeppelin.com/contracts-sui) for concepts and guides, then the generated API reference at `https://docs.openzeppelin.com/contracts-sui/1.x/api/<package>` (where `<package>` is the short catalog name — the `Docs` link in the catalog table — not the Move package name) for exact signatures, parameters, and abort conditions.
+2. **Read the docs.** Start at the [documentation site](https://docs.openzeppelin.com/contracts-sui) for concepts and guides, then the generated API reference — reached via the `Docs` link in each catalog table (it points at the correct version), path `.../contracts-sui/<major>.x/api/<package>` where `<major>` matches your contracts-sui release and `<package>` is the short catalog name, not the Move package name — for exact signatures, parameters, and abort conditions.
 3. **Read the code docs.** The API reference is generated from the modules' doc-comments, so the installed source is the ground truth. Generate the same docs locally with `sui move build --doc --build-env testnet` (the `--build-env` is required whenever there are MVR deps) — this also emits the docs for every OZ dependency under `build/<package>/docs/dependencies/<move_package_name>/` — or just read the doc-comments in the installed source.
 
 Discover the available examples from `llms.txt` and each package README, then browse them in the [contracts-sui repo](https://github.com/OpenZeppelin/contracts-sui).
@@ -97,7 +97,7 @@ This is a Sui Move project built on **OpenZeppelin Contracts for Sui**.
 - AI discovery entry point: https://raw.githubusercontent.com/OpenZeppelin/contracts-sui/main/llms.txt
   (points to the package catalogs, each package's `examples/`, the generated API reference, and audits)
 - Docs: https://docs.openzeppelin.com/contracts-sui
-- API reference: https://docs.openzeppelin.com/contracts-sui/1.x/api/<package>
+- API reference: https://docs.openzeppelin.com/contracts-sui/<major>.x/api/<package> (`<major>` matches your contracts-sui release; the catalog's `Docs` links carry the correct version)
 - Code docs (local): `sui move build --doc --build-env testnet` → `build/<package>/docs/` (includes OZ dependencies)
 
 ## Conventions
