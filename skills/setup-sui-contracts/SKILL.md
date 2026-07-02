@@ -14,7 +14,7 @@ Install the Sui CLI by following the [Sui installation guide](https://docs.sui.i
 
 Any time you need to investigate the library, start from its AI discovery entry point, [`llms.txt`](https://raw.githubusercontent.com/OpenZeppelin/contracts-sui/main/llms.txt) — it maps the library's content (the architecture doc, the `contracts/` and `math/` package catalogs, each package's README/examples/API reference, and audits). Follow its links rather than guessing paths.
 
-OpenZeppelin Contracts for Sui pins a specific Sui CLI version in its top-level [README](https://raw.githubusercontent.com/OpenZeppelin/contracts-sui/main/README.md) (this is repo metadata, not linked from `llms.txt`) — read the required version there and confirm the local install matches:
+OpenZeppelin Contracts for Sui pins a specific Sui CLI version in its top-level [README](https://raw.githubusercontent.com/OpenZeppelin/contracts-sui/main/README.md) (this is repo metadata, not linked from `llms.txt`) — read the required version there and check your local install against it. The pinned version is the tested one and safest to match; a newer patch/minor generally works too, so treat a small drift as a warning, not a blocker:
 
 ```bash
 sui --version
