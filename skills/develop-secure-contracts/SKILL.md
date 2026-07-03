@@ -78,12 +78,12 @@ by reading dependency source code. Works for any ecosystem and any library versi
    - Stylus: resolve from `Cargo.toml` — source in `target/` or the cargo registry cache
      (`~/.cargo/registry/src/`)
    - Stellar: resolve from `Cargo.toml` — same cargo cache locations as Stylus
-   - Sui Move: resolve from `Move.toml` `[dependencies]` (`<pkg> = { r.mvr = "@openzeppelin-move/<slug>" }`);
+   - Sui Move: resolve from `Move.toml` `[dependencies]` (`<move_package_name> = { r.mvr = "@openzeppelin-move/<slug>" }`);
      the Move Registry source is cached under `~/.move/` after a build
      (`sui move build --build-env <env>` — the build env is required whenever there are MVR deps), and mirrored per-dependency in the project's
-     `build/<pkg>/sources/dependencies/<move_package_name>/` — read `.move` sources there for exact
+     `build/<project_package>/sources/dependencies/<move_package_name>/` — read `.move` sources there for exact
      signatures. Generate readable code docs with `sui move build --doc --build-env <env>`; dependency
-     docs land under `build/<pkg>/docs/dependencies/<move_package_name>/`.
+     docs land under `build/<project_package>/docs/dependencies/<move_package_name>/`.
 4. Browse the dependency's directory listing to discover available components. Use `Glob`
    patterns against the installed source (e.g., `node_modules/@openzeppelin/contracts/**/*.sol`).
    Do not assume knowledge of the library's contents — always verify by listing directories.
@@ -182,7 +182,7 @@ Don't restate Sui/Move conventions here — read them from the library's own sou
 
 As in every ecosystem, integrate by importing via MVR — never copy library source into the project.
 
-**Before finishing, run the project's full quality gate** — `sui move build`, `sui move test`, the formatter (`prettier-move`), and lint.
+**Before finishing, run the project's full quality gate** — build, test, lint, and formatting — using the commands and formatter the `setup-sui-contracts` skill already specifies.
 
 ## CLI Generators
 
