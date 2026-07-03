@@ -80,7 +80,7 @@ by reading dependency source code. Works for any ecosystem and any library versi
    - Stellar: resolve from `Cargo.toml` — same cargo cache locations as Stylus
    - Sui Move: resolve from `Move.toml` `[dependencies]` (`<pkg> = { r.mvr = "@openzeppelin-move/<slug>" }`);
      the Move Registry source is cached under `~/.move/` after a build
-     (`sui move build --build-env <testnet|mainnet>`), and mirrored per-dependency in the project's
+     (`sui move build --build-env <env>` — the build env is required whenever there are MVR deps), and mirrored per-dependency in the project's
      `build/<pkg>/sources/dependencies/<move_package_name>/` — read `.move` sources there for exact
      signatures. Generate readable code docs with `sui move build --doc --build-env <env>`; dependency
      docs land under `build/<pkg>/docs/dependencies/<move_package_name>/`.
@@ -181,6 +181,8 @@ Don't restate Sui/Move conventions here — read them from the library's own sou
 - **Toolchain, `Move.toml` (including resolving version conflicts when you combine OZ packages, e.g. an `override` on a shared math dependency), `--build-env` builds, and testing conventions**: the `setup-sui-contracts` skill.
 
 As in every ecosystem, integrate by importing via MVR — never copy library source into the project.
+
+**Before finishing, run the project's full quality gate** — `sui move build`, `sui move test`, the formatter (`prettier-move`), and lint.
 
 ## CLI Generators
 
