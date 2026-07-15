@@ -114,12 +114,12 @@ This is a Sui Move project built on **OpenZeppelin Contracts for Sui**.
 - AI discovery entry point: https://raw.githubusercontent.com/OpenZeppelin/contracts-sui/main/llms.txt
   (points to the package catalogs, each package's `examples/`, the generated API reference, and audits)
 - Docs: https://docs.openzeppelin.com/contracts-sui
-- API reference: https://docs.openzeppelin.com/contracts-sui/<major>.x/api/<package> (`<major>` matches your contracts-sui release; the catalog's `Docs` links carry the correct version)
-- Code docs (local): `sui move build --doc --build-env testnet` → `build/<package>/docs/` (includes OZ dependencies)
+- API reference: https://docs.openzeppelin.com/contracts-sui/<major>.x/api/<catalog_package> (`<major>` matches your contracts-sui release and `<catalog_package>` is the short catalog name; the catalog's `Docs` links carry the correct version)
+- Code docs (local): `sui move build --doc --build-env testnet` → `build/<your_package>/docs/` (named after your own package; includes OZ dependencies)
 
 ## Conventions
 - Before implementing, study each package's `examples/` (compilable, CI-tested composition recipes) and its API docs; prefer audited library components over custom logic.
-- Import modules via the Move package name (`use <package>::<module>;`); a package typically exposes several modules — check its README and `examples/`.
+- Import modules via the Move package name (`use <move_package_name>::<module>;`); a package typically exposes several modules — check its README and `examples/`.
 - MVR-backed builds require a build env: `sui move build --build-env testnet`. If two OZ deps pull different revisions of a shared transitive package, add `override = true` to the directly-declared one.
 - For fungible-asset custody, consider Sui [Address Balances](https://docs.sui.io/onchain-finance/asset-custody/address-balances/) (SIP-58) over summing `Coin` objects where it fits.
 - Code style follows the OpenZeppelin Sui conventions — see Code Quality below.
@@ -131,7 +131,7 @@ The library's conventions are the single source of truth for Move style:
 - Review procedure (reads STYLEGUIDE.md, reports/fixes violations): https://raw.githubusercontent.com/OpenZeppelin/contracts-sui/main/.claude/commands/code-quality.md
 
 ## MCP
-The OpenZeppelin Sui MCP (https://mcp.openzeppelin.com/contracts/sui/mcp) serves recipes and per-package install lines as deterministic tool calls (`sui-list-recipes`, `sui-get-recipe`, `sui-get-package`) — a queryable alternative to reading `llms.txt` + the catalogs by hand. This project ships it pre-wired in `.mcp.json`. It returns data; assembling a buildable project is this skill's job.
+The OpenZeppelin Sui MCP (https://mcp.openzeppelin.com/contracts/sui/mcp) serves recipes and per-package install lines as deterministic tool calls (`sui-list-recipes`, `sui-get-recipe`, `sui-get-package`) — a queryable alternative to reading `llms.txt` + the catalogs by hand. This project ships it pre-wired in `.mcp.json`. It returns data, not a buildable package — wiring the install lines into `Move.toml` and re-homing the source into this package is what turns it into one.
 ```
 
 Also write a pre-wired MCP config at the project root so any agent understands the OpenZeppelin-on-Sui context on clone, without manual setup. Claude Code reads `.mcp.json`; other assistants (Cursor, Cline) take the same server URL in their own MCP config.
