@@ -52,6 +52,19 @@ Do **not** rely on a memorized package list — it drifts as the library evolves
 
 > **A package usually contains several modules.** The catalog lists *packages*; the building block you want is often one module among several inside a package. Read the package README's module list and its `examples/` to see what a package actually exposes — don't assume one package equals one component, and don't rely on a fixed mental catalog: the set of packages and modules grows over time.
 
+> The OpenZeppelin **Sui MCP** exposes this same metadata as deterministic tool calls — `sui-list-recipes` (discover recipes), `sui-get-recipe` (a recipe's source plus the packages it uses, each with its install line), and `sui-get-package` (a package's install line + docs). When the MCP is available, query it instead of crawling the files by hand, then wire the returned install lines into `Move.toml` and re-home the recipe source into your package. The MCP returns data, not a buildable package — that wiring and re-homing are what turn it into one.
+
+### Packages not on the Move Registry
+
+Not every package is on the Move Registry — some are not published there at all. When a package's `README.md` has no `r.mvr` install snippet, depend on it from a **GitHub release** instead — a git dependency pinned to a release tag, never a moving branch:
+
+```toml
+[dependencies]
+<move_package_name> = { git = "https://github.com/OpenZeppelin/contracts-sui.git", subdir = "<catalog-dir>/<path>", rev = "<release-tag>" }
+```
+
+`<catalog-dir>/<path>` is the package's directory in the repo (the same `Path` its catalog row lists); pin `rev` to a published GitHub **release** tag, not a branch. Keep every OpenZeppelin dependency on one consistent revision to avoid the diamond conflict below.
+
 ### Resolving version conflicts (diamond dependencies)
 
 Two OZ packages can pull *different revisions* of a shared transitive dependency — for example, if one package embeds its own revision of a math package that you also depend on directly. When that happens the build aborts:
@@ -73,6 +86,10 @@ openzeppelin_fp_math = { r.mvr = "@openzeppelin-move/fixed-point-math" }
 Do this before writing any integration code — most users don't know the full catalog, and it grows over time, so let the library show you what it provides and how it's meant to be composed. For each package you plan to use:
 
 1. **Study its `examples/`.** Every package ships compilable, CI-tested integration examples — these are the canonical composition recipes and the fastest way to see the real usage pattern (initialization, capability/witness flow, object ownership, tests). Prefer copying and adapting an example into `sources/` over writing from scratch.
+
+   > **Read examples and metadata from `main`; pin dependencies to a release.** All AI metadata — `llms.txt`, the catalogs, package READMEs, `STYLEGUIDE.md`, and the `examples/` — should be read from the **`main` branch**, which carries the latest and most complete set (a package may have examples on `main` that a tagged release does not). Your build *dependencies*, by contrast, resolve to a pinned **release** — an MVR slug or a git `rev = "<release-tag>"` (above) — so builds stay reproducible. The two can differ: an example copied from `main` may reference an API newer than your pinned release, in which case adapt it (or bump the pinned release) when you re-home.
+
+   > **Re-home a copied example.** Example modules are declared under the *library's* own address (e.g. `module openzeppelin_access::example_reward_treasury;`) — they are illustrations inside the library, not drop-in consumer code. When you copy one into `sources/`, rename its module to your package (`module <your_package>::<module>;`, where `<your_package>` is your `Move.toml` `[package]` name). Keep the `use openzeppelin_*::…` lines as-is — those reference the dependencies. **If the example defines a one-time witness** — a struct whose name is the module name upper-cased, consumed by `init` — rename that struct to match your new module name too, or `init` fails with "Invalid parameter … Expected a one-time witness type". You cannot define a module under a dependency's address, so a verbatim copy will not build until it is re-homed.
 2. **Read the docs.** Start at the [documentation site](https://docs.openzeppelin.com/contracts-sui) for concepts and guides, then the generated API reference — reached via the `Docs` link in each catalog table (it points at the correct version), path `.../contracts-sui/<major>.x/api/<package>` where `<major>` matches your contracts-sui release and `<package>` is the short catalog name, not the Move package name — for exact signatures, parameters, and abort conditions.
 3. **Read the code docs.** The API reference is generated from the modules' doc-comments, so the installed source is the ground truth. Generate the same docs locally with `sui move build --doc --build-env testnet` (the `--build-env` is required whenever there are MVR deps) — this also emits the docs for every OZ dependency under `build/<package>/docs/dependencies/<move_package_name>/` — or just read the doc-comments in the installed source.
 
@@ -113,8 +130,21 @@ The library's conventions are the single source of truth for Move style:
 - Design rationale: https://raw.githubusercontent.com/OpenZeppelin/contracts-sui/main/ARCHITECTURE.md
 - Review procedure (reads STYLEGUIDE.md, reports/fixes violations): https://raw.githubusercontent.com/OpenZeppelin/contracts-sui/main/.claude/commands/code-quality.md
 
-## MCP (optional)
-An OpenZeppelin MCP endpoint (https://mcp.openzeppelin.com) can be added for in-editor access to OZ knowledge.
+## MCP
+The OpenZeppelin Sui MCP (https://mcp.openzeppelin.com/contracts/sui/mcp) serves recipes and per-package install lines as deterministic tool calls (`sui-list-recipes`, `sui-get-recipe`, `sui-get-package`) — a queryable alternative to reading `llms.txt` + the catalogs by hand. This project ships it pre-wired in `.mcp.json`. It returns data; assembling a buildable project is this skill's job.
+```
+
+Also write a pre-wired MCP config at the project root so any agent understands the OpenZeppelin-on-Sui context on clone, without manual setup. Claude Code reads `.mcp.json`; other assistants (Cursor, Cline) take the same server URL in their own MCP config.
+
+```json
+{
+  "mcpServers": {
+    "openzeppelin-sui": {
+      "type": "http",
+      "url": "https://mcp.openzeppelin.com/contracts/sui/mcp"
+    }
+  }
+}
 ```
 
 ## Build & Test
