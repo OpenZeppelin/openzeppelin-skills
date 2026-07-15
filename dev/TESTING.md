@@ -251,7 +251,7 @@ Apply these checks to every test unless noted otherwise:
 
 ### 3.6 Sui Move — pattern discovery from installed dependency
 
-**Setup:** A Sui Move project whose `Move.toml` already depends on an OpenZeppelin package via MVR (e.g. `openzeppelin_access = { r.mvr = "@openzeppelin-move/access" }`) and a module under `sources/` that uses it.
+**Setup:** A Sui Move project whose `Move.toml` already depends on an OpenZeppelin access package via MVR (`openzeppelin_access = { r.mvr = "@openzeppelin-move/<slug>" }`) and a module under `sources/` that uses it.
 
 **Prompt:**
 > Add role-based access control from OpenZeppelin to my Sui Move module.
