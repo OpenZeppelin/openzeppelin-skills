@@ -249,6 +249,20 @@ Apply these checks to every test unless noted otherwise:
 - Does NOT blindly stack both — proposes a coherent approach (e.g., migrate to Ownable, or keep AccessControl and adjust roles)
 - Explains the conflict to the user
 
+### 3.6 Sui Move — pattern discovery from installed dependency
+
+**Setup:** A Sui Move project whose `Move.toml` already depends on an OpenZeppelin access package via MVR (`openzeppelin_access = { r.mvr = "@openzeppelin-move/<slug>" }`) and a module under `sources/` that uses it.
+
+**Prompt:**
+> Add role-based access control from OpenZeppelin to my Sui Move module.
+
+**Expected:**
+- `develop-secure-contracts` skill activates and follows the pattern-discovery methodology
+- Searches `**/*.move` and reads `Move.toml` `[dependencies]` to identify the installed OZ packages
+- Discovers the component from the library's own metadata/examples (`llms.txt` → package `README` → `examples/`), not a hardcoded list — and does NOT reach for a CLI generator (none exists for Sui)
+- Integrates by importing via the Move package name (`use <move_package_name>::<module>;`) — never copies library source
+- Reads the installed dependency source/doc-comments (e.g. under `build/<project_package>/sources/dependencies/…`) for exact signatures
+
 ---
 
 ## 4. CLI Contract Generators

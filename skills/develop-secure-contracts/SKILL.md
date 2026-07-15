@@ -1,6 +1,6 @@
 ---
 name: develop-secure-contracts
-description: "Develop secure smart contracts using OpenZeppelin Contracts libraries. Use when users need to integrate OpenZeppelin library components — including token standards (ERC20, ERC721, ERC1155), access control (Ownable, AccessControl, AccessManager), security primitives (Pausable, ReentrancyGuard), governance (Governor, timelocks), or accounts (multisig, account abstraction) — into existing or new contracts. Covers pattern discovery from library source, CLI contract generators, and library-first integration. Supports Solidity, Cairo, Stylus, and Stellar."
+description: "Develop secure smart contracts using OpenZeppelin Contracts libraries. Use when users need to integrate OpenZeppelin library components — including token standards (ERC20, ERC721, ERC1155), access control (Ownable, AccessControl, AccessManager), security primitives (Pausable, ReentrancyGuard), governance (Governor, timelocks), or accounts (multisig, account abstraction) — into existing or new contracts. Covers pattern discovery from library source, CLI contract generators, and library-first integration. Supports Solidity, Cairo, Stylus, Stellar, and Sui Move."
 license: AGPL-3.0-only
 metadata:
   author: OpenZeppelin
@@ -18,7 +18,7 @@ For conceptual questions ("How does Ownable work?"), explain without generating 
 
 Before generating code or suggesting changes:
 
-1. **Search the user's project** for existing contracts (`Glob` for `**/*.sol`, `**/*.cairo`, `**/*.rs`, etc.)
+1. **Search the user's project** for existing contracts (`Glob` for `**/*.sol`, `**/*.cairo`, `**/*.rs`, `**/*.move`, etc.)
 2. **Read the relevant contract files** to understand what already exists
 3. **Default to integration, not replacement** — when users say "add pausability" or "make it upgradeable", they mean modify their existing code, not generate something new. Only replace if explicitly requested ("start fresh", "replace this").
 
@@ -68,7 +68,7 @@ by reading dependency source code. Works for any ecosystem and any library versi
 ### Step 1: Identify Dependencies and Search the Library
 
 1. Search the project for contract files: `Glob` for `**/*.sol`, `**/*.cairo`, `**/*.rs`,
-   or the relevant extension from the lookup table below.
+   `**/*.move`, or the relevant extension from the lookup table below.
 2. Read import/use statements in existing contracts to identify which OpenZeppelin components
    are already in use.
 3. Locate the installed dependency in the project's dependency tree:
@@ -78,6 +78,8 @@ by reading dependency source code. Works for any ecosystem and any library versi
    - Stylus: resolve from `Cargo.toml` — source in `target/` or the cargo registry cache
      (`~/.cargo/registry/src/`)
    - Stellar: resolve from `Cargo.toml` — same cargo cache locations as Stylus
+   - Sui Move: resolve from `Move.toml` — after a build, the MVR source is cached under `~/.move/`
+     and mirrored per-dependency in `build/<project_package>/sources/dependencies/<move_package_name>/`
 4. Browse the dependency's directory listing to discover available components. Use `Glob`
    patterns against the installed source (e.g., `node_modules/@openzeppelin/contracts/**/*.sol`).
    Do not assume knowledge of the library's contents — always verify by listing directories.
@@ -137,6 +139,7 @@ between "contract without the feature" and "contract with the feature."
 | Cairo | [cairo-contracts](https://github.com/OpenZeppelin/cairo-contracts) | [docs.openzeppelin.com/contracts-cairo](https://docs.openzeppelin.com/contracts-cairo) | `.cairo` | Scarb cache (resolve from `Scarb.toml`) |
 | Stylus | [rust-contracts-stylus](https://github.com/OpenZeppelin/rust-contracts-stylus) | [docs.openzeppelin.com/contracts-stylus](https://docs.openzeppelin.com/contracts-stylus) | `.rs` | Cargo cache (`~/.cargo/registry/src/`) |
 | Stellar | [stellar-contracts](https://github.com/OpenZeppelin/stellar-contracts) ([Architecture](https://github.com/OpenZeppelin/stellar-contracts/blob/main/Architecture.md)) | [docs.openzeppelin.com/stellar-contracts](https://docs.openzeppelin.com/stellar-contracts) | `.rs` | Cargo cache (`~/.cargo/registry/src/`) |
+| Sui Move | [contracts-sui](https://github.com/OpenZeppelin/contracts-sui) ([llms.txt](https://raw.githubusercontent.com/OpenZeppelin/contracts-sui/main/llms.txt) · [ARCHITECTURE](https://raw.githubusercontent.com/OpenZeppelin/contracts-sui/main/ARCHITECTURE.md)) | [docs.openzeppelin.com/contracts-sui](https://docs.openzeppelin.com/contracts-sui) | `.move` | Move Registry cache (`~/.move/`, resolve from `Move.toml`) |
 
 ### Directory Structure Conventions
 
@@ -152,6 +155,8 @@ Where to find components within each repository:
 | Accounts | `contracts/account/` | `packages/account/` | — | `packages/accounts/` |
 
 Browse these paths first when searching for a component.
+
+**Sui Move** isn't in this fixed grid and has no `@openzeppelin/contracts-cli` generator, so always use the pattern-discovery methodology above — adapt a package's `examples/` as the canonical integration recipe and import via MVR rather than copying source. Discover everything else (the package set, composition and style conventions, exact APIs, and the toolchain) from the library's own metadata, starting at [`llms.txt`](https://raw.githubusercontent.com/OpenZeppelin/contracts-sui/main/llms.txt); the `setup-sui-contracts` skill covers the full setup, dependency, `--build-env` build, and quality-gate flow.
 
 ### Known Version-Specific Considerations
 
