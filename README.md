@@ -34,6 +34,7 @@ cp -r skills/*-contracts ~/.claude/skills/
 | [setup-cairo-contracts](skills/setup-cairo-contracts/SKILL.md) | Set up a Cairo project |
 | [setup-stylus-contracts](skills/setup-stylus-contracts/SKILL.md) | Set up a Stylus project |
 | [setup-stellar-contracts](skills/setup-stellar-contracts/SKILL.md) | Set up a Stellar project |
+| [setup-sui-contracts](skills/setup-sui-contracts/SKILL.md) | Set up a Sui Move project |
 | [upgrade-solidity-contracts](skills/upgrade-solidity-contracts/SKILL.md) | Upgrade Solidity contracts |
 | [upgrade-cairo-contracts](skills/upgrade-cairo-contracts/SKILL.md) | Upgrade Cairo contracts |
 | [upgrade-stylus-contracts](skills/upgrade-stylus-contracts/SKILL.md) | Upgrade Stylus contracts |

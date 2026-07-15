@@ -172,6 +172,18 @@ Apply these checks to every test unless noted otherwise:
 - `stellar contract init`
 - Workspace dependency pattern: `[workspace.dependencies]` in root `Cargo.toml` with exact-pinned versions (`"=<VERSION>"`), then `{ workspace = true }` in per-contract `Cargo.toml`
 
+### 2.7 Sui
+
+**Prompt:**
+> Set up a new Sui Move project with OpenZeppelin Contracts for Sui.
+
+**Expected:**
+- `setup-sui-contracts` skill activates
+- Scaffolds a Move package (`Move.toml` with `edition = "2024"`, `sources/`) and adds deps via `r.mvr = "@openzeppelin-move/<slug>"`
+- Builds with `sui move build --build-env testnet` (MVR deps do not resolve without `--build-env`)
+- Discovers available packages from `llms.txt` / the catalogs — does NOT hard-code a fixed package list
+- Generates `AGENTS.md`, `CLAUDE.md`, and a pre-wired `.mcp.json`
+
 ---
 
 ## 3. Core Workflow — Pattern Discovery
