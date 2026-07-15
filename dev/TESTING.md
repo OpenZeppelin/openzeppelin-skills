@@ -261,7 +261,7 @@ Apply these checks to every test unless noted otherwise:
 - Searches `**/*.move` and reads `Move.toml` `[dependencies]` to identify the installed OZ packages
 - Discovers the component from the library's own metadata/examples (`llms.txt` → package `README` → `examples/`), not a hardcoded list — and does NOT reach for a CLI generator (none exists for Sui)
 - Integrates by importing via the Move package name (`use <move_package_name>::<module>;`) — never copies library source
-- Reads the installed dependency source/doc-comments (e.g. under `build/<project_package>/sources/dependencies/…` or via `sui move build --doc`) for exact signatures
+- Reads the installed dependency source/doc-comments (e.g. under `build/<project_package>/sources/dependencies/…`) for exact signatures
 
 ---
 
