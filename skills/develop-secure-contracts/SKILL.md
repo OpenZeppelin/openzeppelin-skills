@@ -78,12 +78,8 @@ by reading dependency source code. Works for any ecosystem and any library versi
    - Stylus: resolve from `Cargo.toml` — source in `target/` or the cargo registry cache
      (`~/.cargo/registry/src/`)
    - Stellar: resolve from `Cargo.toml` — same cargo cache locations as Stylus
-   - Sui Move: resolve from `Move.toml` `[dependencies]` (`<move_package_name> = { r.mvr = "@openzeppelin-move/<slug>" }`);
-     the Move Registry source is cached under `~/.move/` after a build
-     (`sui move build --build-env <env>` — the build env is required whenever there are MVR deps), and mirrored per-dependency in the project's
-     `build/<project_package>/sources/dependencies/<move_package_name>/` — read `.move` sources there for exact
-     signatures. Generate readable code docs with `sui move build --doc --build-env <env>`; dependency
-     docs land under `build/<project_package>/docs/dependencies/<move_package_name>/`.
+   - Sui Move: resolve from `Move.toml` — after a build, the MVR source is cached under `~/.move/`
+     and mirrored per-dependency in `build/<project_package>/sources/dependencies/<move_package_name>/`
 4. Browse the dependency's directory listing to discover available components. Use `Glob`
    patterns against the installed source (e.g., `node_modules/@openzeppelin/contracts/**/*.sol`).
    Do not assume knowledge of the library's contents — always verify by listing directories.
@@ -160,29 +156,13 @@ Where to find components within each repository:
 
 Browse these paths first when searching for a component.
 
-**Sui Move** deliberately isn't in this fixed grid: its package set doesn't map cleanly onto these categories and grows over time, so don't work from a hardcoded list. Discover it from the library's own metadata instead — start at [`llms.txt`](https://raw.githubusercontent.com/OpenZeppelin/contracts-sui/main/llms.txt), follow it to whatever package catalogs it links, then read each package's `README.md` (module list) and `examples/`. A capability is often one module among several inside a package, so read the package README rather than assuming one package equals one component. (The `setup-sui-contracts` skill covers this discovery flow in full.)
+**Sui Move** isn't in this fixed grid and has no `@openzeppelin/contracts-cli` generator, so always use the pattern-discovery methodology above — adapt a package's `examples/` as the canonical integration recipe and import via MVR rather than copying source. Discover everything else (the package set, composition and style conventions, exact APIs, and the toolchain) from the library's own metadata, starting at [`llms.txt`](https://raw.githubusercontent.com/OpenZeppelin/contracts-sui/main/llms.txt); the `setup-sui-contracts` skill covers the full setup, dependency, `--build-env` build, and quality-gate flow.
 
 ### Known Version-Specific Considerations
 
 Do not assume override points from prior knowledge — always verify by reading the installed source. Functions that were `virtual` in an older version may no longer be in the current one, making them non-overridable. The source NatSpec will indicate the correct override point (e.g., `NOTE: This function is not virtual, {X} should be overridden instead`).
 
 A known example: the Solidity ERC-20 transfer hook changed between v4 and v5. Read the installed `ERC20.sol` to confirm which function is `virtual` before recommending an override.
-
-### Sui Move Integration Notes
-
-Sui has **no `@openzeppelin/contracts-cli` generator**, so there is no generate-compare-apply shortcut — always use the pattern-discovery methodology above, treating each package's `examples/` as the canonical, compilable integration recipe (adapt one rather than writing from scratch).
-
-Don't restate Sui/Move conventions here — read them from the library's own sources of truth (all linked from [`llms.txt`](https://raw.githubusercontent.com/OpenZeppelin/contracts-sui/main/llms.txt)):
-
-- **How the library is shaped and composed** — capability-based access (witnesses/OTW), owned vs. shared objects, PTB-friendliness, initialization: [`ARCHITECTURE.md`](https://raw.githubusercontent.com/OpenZeppelin/contracts-sui/main/ARCHITECTURE.md) + the package `examples/`.
-- **Move 2024 idioms** — receiver/method syntax (`public use fun`), module layout, naming: [`STYLEGUIDE.md`](https://raw.githubusercontent.com/OpenZeppelin/contracts-sui/main/STYLEGUIDE.md).
-- **The exact `r.mvr` dependency snippet and `use` path** (the Move package name differs from the MVR slug): the package's own `README.md`.
-- **Exact API — signatures, parameters, events, abort conditions**: the documentation site [docs.openzeppelin.com/contracts-sui](https://docs.openzeppelin.com/contracts-sui) (concepts/guides) and the generated API reference, which you reach via the `Docs` link in each package's catalog entry rather than by guessing a URL path; the installed source and its doc-comments are the ground truth when the docs are terse.
-- **Toolchain, `Move.toml` (including resolving version conflicts when you combine OZ packages, e.g. an `override` on a shared math dependency), `--build-env` builds, and testing conventions**: the `setup-sui-contracts` skill.
-
-As in every ecosystem, integrate by importing via MVR — never copy library source into the project.
-
-**Before finishing, run the project's full quality gate** — build, test, lint, and formatting — using the commands and formatter the `setup-sui-contracts` skill already specifies.
 
 ## CLI Generators
 
