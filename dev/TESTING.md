@@ -627,3 +627,21 @@ Apply these checks to every test unless noted otherwise:
 - For v4: mentions `__gap` storage gaps pattern
 - For v5+: mentions ERC-7201 namespaced storage as the modern replacement
 - Does NOT mix v4 and v5 patterns
+
+---
+
+## 11. Review
+
+### 11.1 Sui Move — review an OpenZeppelin integration
+
+**Setup:** A Sui Move project that integrates OpenZeppelin Contracts for Sui (`Move.toml` pins OZ dependencies; modules under `sources/` use them).
+
+**Prompt:**
+> Review my Sui Move contracts' use of OpenZeppelin Contracts for Sui — am I using it correctly?
+
+**Expected:**
+- `review-sui-contracts` skill activates
+- Establishes the reference first — reads each OZ primitive's API at the **pinned `Move.lock` rev** the code builds against (not `main`), and the library conventions (`STYLEGUIDE.md`, `examples/`/doc-comments) — not from memory
+- Reviews the integrator's use: correct capability/witness/type-argument choice, deviations from the example recipe, copied-vs-imported source, upheld invariants, and test coverage of failure paths
+- Enforces `STYLEGUIDE.md` conventions as findings (not optional suggestions); verifies each finding against the source before reporting; orders findings by severity
+- Scopes to the integrator's code (not library internals) and frames it as an AI review, **not a security audit** (recommends a formal audit for production)

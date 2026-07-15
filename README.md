@@ -30,6 +30,7 @@ cp -r skills/*-contracts ~/.claude/skills/
 | Skill | Purpose |
 |-------|---------|
 | [develop-secure-contracts](skills/develop-secure-contracts/SKILL.md) | Develop secure smart contracts using OpenZeppelin Contracts libraries |
+| [review-sui-contracts](skills/review-sui-contracts/SKILL.md) | Review a Sui Move integration of OpenZeppelin Contracts for Sui |
 | [setup-solidity-contracts](skills/setup-solidity-contracts/SKILL.md) | Set up a Solidity project |
 | [setup-cairo-contracts](skills/setup-cairo-contracts/SKILL.md) | Set up a Cairo project |
 | [setup-stylus-contracts](skills/setup-stylus-contracts/SKILL.md) | Set up a Stylus project |

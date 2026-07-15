@@ -11,6 +11,7 @@ The skills are organized by development lifecycle phase:
 - **Setup skills** (`setup-<language>-contracts`) — project scaffolding, dependency installation, and import conventions for each ecosystem
 - **Develop skill** (`develop-secure-contracts`) — core development workflow, pattern discovery methodology, CLI contract generators, and library-first integration principles (generic across all ecosystems)
 - **Upgrade skills** (`upgrade-<language>-contracts`) — proxy patterns, initializers, storage compatibility, and upgrade procedures for each ecosystem
+- **Review skills** (`review-<language>-contracts`) — review an existing integration's use of OpenZeppelin components against the library's own patterns and conventions: correct primitives, deviations from the reference, upheld invariants, test coverage, and code quality
 
 ## Core Principles
 
@@ -34,4 +35,4 @@ When `@openzeppelin/contracts-cli` is available, it serves as an optional shortc
 
 ## Scope
 
-The skills cover the full lifecycle of working with OpenZeppelin Contracts libraries: setting up a project, integrating standard components, and managing upgradeability. Each skill is scoped to a specific phase and ecosystem, carrying enough reference knowledge to handle that library's specific composition model, versioning constraints, and upgrade patterns.
+The skills cover the full lifecycle of working with OpenZeppelin Contracts libraries: setting up a project, integrating standard components, managing upgradeability, and reviewing an integration. Each skill is scoped to a specific phase and ecosystem, carrying enough reference knowledge to handle that library's specific composition model, versioning constraints, and upgrade patterns.
