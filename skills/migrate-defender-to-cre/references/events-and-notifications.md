@@ -36,4 +36,4 @@ Test successful delivery, non-success responses and repeated requests against an
 
 After authorized deployment, confirm activation and cause a new matching trigger. An old receipt used for local replay is not evidence of an active subscription. Correlate execution status with the destination's payload, event identity and effect. Test same-event duplication and recovery separately when required. Report only the handlers and delivery paths actually exercised.
 
-For a concrete Governor illustration, consult [the versioned notification example](https://github.com/OpenZeppelin/defender-to-cre-examples/tree/v1.0.1/gov-alert). Its packages, config keys, events and endpoints belong to that example.
+For a concrete Governor illustration, consult [the versioned notification example](https://github.com/OpenZeppelin/defender-to-cre-examples/tree/v1.0.2/gov-alert). Its packages, config keys, events and endpoints belong to that example.
