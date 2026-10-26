@@ -41,7 +41,7 @@ Function-call/status monitoring, high-frequency schedules, counters and cooldown
 - **Implementation or validation:** [Runtime and validation](references/runtime-and-validation.md), for config resolution, runtime compatibility and evidence boundaries.
 - **A matching error or version-specific question:** [Troubleshooting](references/troubleshooting.md). Historical findings are diagnostic clues, not universal requirements.
 
-The [OpenZeppelin migration examples](https://github.com/OpenZeppelin/defender-to-cre-examples) are optional worked examples. Use a versioned example when it matches the task; do not require its Governor, payload or folder structure.
+The [OpenZeppelin migration examples](https://github.com/OpenZeppelin/defender-to-cre-examples/tree/v1.0.2) are optional worked examples. Use a versioned example when it matches the task; do not require its Governor, payload or folder structure.
 
 ## 4. Implement and validate within scope
 
