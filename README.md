@@ -1,6 +1,6 @@
 # OpenZeppelin Skills
 
-Agent skills for secure smart contract development with OpenZeppelin Contracts libraries.
+Agent skills for secure smart contract development with OpenZeppelin Contracts libraries and migration of Defender workflows.
 
 ## Installation
 
@@ -22,7 +22,8 @@ npx skills add OpenZeppelin/openzeppelin-skills
 Copy skill folders to your Claude skills directory:
 
 ```bash
-cp -r skills/*-contracts ~/.claude/skills/
+mkdir -p ~/.claude/skills
+cp -r skills/* ~/.claude/skills/
 ```
 
 ## Available Skills
@@ -30,6 +31,7 @@ cp -r skills/*-contracts ~/.claude/skills/
 | Skill | Purpose |
 |-------|---------|
 | [develop-secure-contracts](skills/develop-secure-contracts/SKILL.md) | Develop secure smart contracts using OpenZeppelin Contracts libraries |
+| [migrate-defender-to-cre](skills/migrate-defender-to-cre/SKILL.md) | Assess, implement and validate Defender workflow migrations to Chainlink CRE |
 | [review-sui-contracts](skills/review-sui-contracts/SKILL.md) | Review a Sui Move integration of OpenZeppelin Contracts for Sui |
 | [setup-solidity-contracts](skills/setup-solidity-contracts/SKILL.md) | Set up a Solidity project |
 | [setup-cairo-contracts](skills/setup-cairo-contracts/SKILL.md) | Set up a Cairo project |

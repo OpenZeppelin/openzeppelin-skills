@@ -2,6 +2,8 @@
 
 Test suite for the OpenZeppelin skills.
 
+The [Defender to CRE scenarios](TESTING-migrate-defender-to-cre.md) use the same protocol below to test migration-specific behavior.
+
 ## Instructions for the Test Runner
 
 You are testing an AI coding agent's behavior when the OpenZeppelin skills are active.
